@@ -2,7 +2,8 @@
   "name": "true-life",
   "version": "1.0.0",
   "description": "",
-  "main": "./client/index.js",
+  "main": "build/bundle.js",
+  "type": "module",
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon --exec ts-node --experimental-specifier-resolution=node --esm --files ./server/index.ts",
     "build": "concurrently 'tsc' 'cross-env NODE_ENV=production webpack'",
@@ -27,6 +28,7 @@
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
