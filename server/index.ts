@@ -1,4 +1,4 @@
-import "dotenv/config";
+import "dotenv/config"; // env vars import
 
 import express from "express";
 import cors from "cors";
