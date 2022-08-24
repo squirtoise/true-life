@@ -13,7 +13,7 @@ CREATE TABLE "users" (
 	"password" VARCHAR(255) NOT NULL,
 	"first_name" VARCHAR(255) NOT NULL,
 	"last_name" VARCHAR(255) NOT NULL,
-	"streak" integer NOT NULL,
+	"streak" integer DEFAULT '0',
 	"window_start" TIME NOT NULL,
 	"avatar" VARCHAR(255) DEFAULT 'defaultAvatar.png',
 	"created_on" TIMESTAMP NOT NULL,
