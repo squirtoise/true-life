@@ -24,6 +24,9 @@
   "homepage": "https://github.com/squirtoise/true-life#readme",
   "dependencies": {
     "@apollo/client": "^3.6.5",
+    "@fortawesome/fontawesome-svg-core": "^6.1.2",
+    "@fortawesome/free-solid-svg-icons": "^6.1.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
