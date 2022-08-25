@@ -115,9 +115,38 @@ friendController.send = async (
 };
 
 // deletes a friend request from DB (denied friend requests)
-friendController.deny = (req: Request, res: Response, next: NextFunction) => {};
+// :id is user denying (friend_id in table)
+// req.body.friend is user denied (user_id in table)
+friendController.deny = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  // make sure friend request exists
+  const check: any = await db.query(queries.getFriendReq, [
+    req.body.friend,
+    req.params.id,
+  ]);
+  if (check.rows.length > 1) {
+    // delete request from dB
+    const deleteReq: any = await db.query(queries.deleteFriendReq, [
+      req.body.friend,
+      req.params.id,
+    ]);
+    return next();
+  } else return res.status(404).send("Friend request not found");
+};
 
 // deletes two users from each others' friend list
-friendController.del = (req: Request, res: Response, next: NextFunction) => {};
+friendController.del = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  // deletes both rows in user_friends table
+  await db.query(queries.deleteFriend, [req.params.id, req.body.friend]);
+  await db.query(queries.deleteFriend, [req.body.friend, req.params.id]);
+  return next();
+};
 
 export default friendController;

@@ -90,17 +90,43 @@ router.post(
 );
 
 // updates and returns updated user
-router.put("/:id");
+router.put(
+  "/:id",
+  userController.put,
+  (req: Request, res: Response, next: NextFunction) => {
+    return res.json(res.locals.user);
+  }
+);
 
 // deletes user
-router.delete("/:id");
+router.delete(
+  "/:id",
+  userController.del,
+  (req: Request, res: Response, next: NextFunction) => {
+    return res.send("User deleted");
+  }
+);
 
-// deletes a user from another user's friends list
-// (id specified is user deleting the friend)
-router.delete("/friend/:id");
+// deletes a friendship from dB
+// req.params.id : user ID deleting friendship
+// req.body.friend : friend ID
+router.delete(
+  "/friend/:id",
+  friendController.del,
+  (req: Request, res: Response, next: NextFunction) => {
+    return res.send("Friendship deleted");
+  }
+);
 
 // when a user denies a friend request
-// :id is the user denying, will be friend_id in the dB
-router.delete("/friend/request/:id");
+// :id is the user denying (friend_id in the dB)
+// req.body.friend is user who requested (user_id in dB)
+router.delete(
+  "/friend/request/:id",
+  friendController.deny,
+  (req: Request, res: Response, next: NextFunction) => {
+    return res.send("Request deleted");
+  }
+);
 
 export default router;

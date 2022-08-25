@@ -28,6 +28,7 @@ const queries = {
 
   //TEST THIS
   deleteFriend: `DELETE FROM user_friends WHERE user_id = $1 AND friend_id = $2`,
+  deleteFriendReq: `DELETE FROM user_friends WHERE user_id = $1 AND friend_id = $2 AND request = TRUE`,
 
   getAllPosts: `SELECT * FROM posts`,
   getPost: `SELECT * FROM posts WHERE id = $1`,

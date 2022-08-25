@@ -50,9 +50,48 @@ userController.new = async (
 };
 
 // updates user in DB, saves returned user to res.locals
-userController.put = (req: Request, res: Response, next: NextFunction) => {};
+userController.put = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  // grab current user data
+  const queryResult: any = await db.query(queries.getUser, [req.params.id]);
+  if (queryResult.rows > 0) {
+    const {
+      oldEmail,
+      oldPassword,
+      oldFirst,
+      oldLast,
+      oldStreak,
+      oldWindow,
+      oldAvatar,
+    } = queryResult.rows[0];
+    let { email, password, first, last, streak, window, avatar } = req.body;
+
+    // if req.body doesn't specify these data types, keep them as they were
+    email = email ? email : oldEmail;
+    password = password ? password : oldPassword;
+    first = first ? first : oldFirst;
+    last = last ? last : oldLast;
+    streak = streak ? streak : oldStreak;
+    window = window ? window : oldWindow;
+    avatar = avatar ? avatar : oldAvatar;
+
+    const updateUser: any = db.query(queries.updateUser, [req.params.id]);
+    res.locals.user = updateUser.rows[0];
+    return next();
+  } else return res.status(404).send("User does not exist in dB");
+};
 
 // deletes user from DB
-userController.del = (req: Request, res: Response, next: NextFunction) => {};
+userController.del = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  await db.query(queries.deleteUser, [req.params.id]);
+  return next();
+};
 
 export default userController;
