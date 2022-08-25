@@ -1,25 +1,37 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 // NavbarLink - for desktop view w/ react-router links ?
-// export const NavbarLink = styled(Link)`
-//     color: white;
-//     font-size: x-large;
-//     font-family: Arial, Helvetica, sans-serif;
-//     text-decoration: none;
-//     margin: 10px;
+export const NavbarLink = styled(Link)`
+  color: white;
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  margin: 10px;
 
-//     @media (max-width: 860px) {
-//         display: none;
-//     }
-// `
+  @media (max-width: 860px) {
+    display: none;
+  }
+`;
+export const TrueLifeMobileLink = styled(Link)`
+  color: white;
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  margin: 10px;
 
-// profile img /icon 
+  @media (min-width: 861px) {
+    display: none;
+  }
+`;
+
+// profile img /icon
 export const UserProfile = styled.img`
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const NavbarContainer = styled.nav`
   width: 100%;
@@ -43,7 +55,7 @@ export const CenterContainer = styled.div`
   justify-content: center;
   color: white;
   padding-right: 10%;
-  
+
   background-color: black;
 `;
 export const RightContainer = styled.div`
@@ -61,20 +73,20 @@ export const NavbarInnerContainer = styled.div`
 `;
 
 export const NavbarLinkContainer = styled.div`
-    display: flex;
-`
+  display: flex;
+`;
 export const MenuButton = styled.button`
-    width: 70px;
-    height: 50px;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 45px;
-    cursor: pointer;
+  width: 70px;
+  height: 50px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 45px;
+  cursor: pointer;
 
-    @media (min-width: 860px) {
-        display: none;
-    }
-`
+  @media (min-width: 861px) {
+    display: none;
+  }
+`;
 
 export const NavbarExtendedContainer = styled.div``;

@@ -10,9 +10,11 @@ import {
   NavbarLinkContainer,
   MenuButton,
   CenterContainer,
+  NavbarLink,
+  TrueLifeMobileLink,
 } from './styles/Navbar.style';
 
-export function Nav2() {
+export function Navbar() {
   const [extendNavbar, setExtendNavbar] = useState<boolean>(false);
   return (
     <NavbarContainer>
@@ -20,6 +22,10 @@ export function Nav2() {
         <LeftContainer>
           <NavbarLinkContainer>
             {/* Navbar links / buttons */}
+
+            <NavbarLink to='/friends'> Friends </NavbarLink>
+            <NavbarLink to='/streak'>Streak </NavbarLink>
+            <NavbarLink to='/myProfile'> Profile </NavbarLink>
             <MenuButton
               onClick={() => {
                 setExtendNavbar((prev) => !prev);
@@ -29,7 +35,10 @@ export function Nav2() {
             </MenuButton>
           </NavbarLinkContainer>
         </LeftContainer>
-        <CenterContainer>TrueLife</CenterContainer>
+        <CenterContainer>
+          <NavbarLink to='/'> TrueLife </NavbarLink>
+          <TrueLifeMobileLink to='/'>TL</TrueLifeMobileLink>
+        </CenterContainer>
         <RightContainer>{/* Profile Icon/Img */}</RightContainer>
       </NavbarInnerContainer>
       <NavbarExtendedContainer></NavbarExtendedContainer>
