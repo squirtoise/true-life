@@ -14,6 +14,8 @@ export const NavbarLink = styled(Link)`
   }
 `;
 export const TrueLifeMobileLink = styled(Link)`
+  width: 40px;
+  height: 40px;
   color: white;
   font-size: x-large;
   font-family: Arial, Helvetica, sans-serif;
@@ -27,6 +29,8 @@ export const TrueLifeMobileLink = styled(Link)`
 
 // profile img /icon
 export const UserProfile = styled.img`
+  border-color: white;
+  border: solid;
   border-radius: 50%;
   display: flex;
   align-items: center;

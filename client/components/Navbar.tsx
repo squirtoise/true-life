@@ -12,6 +12,7 @@ import {
   CenterContainer,
   NavbarLink,
   TrueLifeMobileLink,
+  UserProfile,
 } from './styles/Navbar.style';
 
 export function Navbar() {
@@ -39,7 +40,10 @@ export function Navbar() {
           <NavbarLink to='/'> TrueLife </NavbarLink>
           <TrueLifeMobileLink to='/'>TL</TrueLifeMobileLink>
         </CenterContainer>
-        <RightContainer>{/* Profile Icon/Img */}</RightContainer>
+        <RightContainer>
+          {/* Profile Icon/Img */}
+          <UserProfile src='#'></UserProfile>
+        </RightContainer>
       </NavbarInnerContainer>
       <NavbarExtendedContainer></NavbarExtendedContainer>
     </NavbarContainer>
