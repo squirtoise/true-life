@@ -46,9 +46,11 @@ CREATE TABLE "comments" (
   OIDS=FALSE
 );
 
+-- request specifies if it's a friend request or if they are friends
 CREATE TABLE "user_friends" (
 	"user_id" integer NOT NULL,
-	"friend_id" integer NOT NULL
+	"friend_id" integer NOT NULL,
+	"request" boolean NOT NULL
 ) WITH (
   OIDS=FALSE
 );

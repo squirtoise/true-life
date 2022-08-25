@@ -8,6 +8,9 @@ import bodyParser from "body-parser";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import userRouter from "./routes/userRouter";
+import postRouter from "./routes/postRouter";
+
 // __dirname TS replacement
 const filename = fileURLToPath(import.meta.url);
 
@@ -29,6 +32,8 @@ if (process.env.NODE_ENV?.trim() === "production") {
 }
 
 // routes here
+app.use("/api/user", userRouter);
+app.use("/api/post", postRouter);
 
 // server start
 app.listen(typeof PORT === "string" ? Number(PORT) : PORT, () =>
