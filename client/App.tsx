@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "./components/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Nav2 } from "./components/Nav2";
 

@@ -17,8 +17,6 @@ export default function Button({
   onClickFunc,
 }: ButtonProps) {
   return (
-    <button className={btnClass} onClick={onClickFunc}>
-      <FontAwesomeIcon icon={icon} className={iconClass}></FontAwesomeIcon>
-    </button>
-  );
+    <button className={ btnClass } onClick={onClickFunc}><FontAwesomeIcon icon={ icon } className={ iconClass }></FontAwesomeIcon></button>
+  )
 }
