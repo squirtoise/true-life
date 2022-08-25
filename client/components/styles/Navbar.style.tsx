@@ -34,12 +34,15 @@ export const LeftContainer = styled.div`
   flex: 30%;
   align-items: center;
   padding-left: 5%;
-  background-color: red;
+  background-color: black;
 `;
 export const CenterContainer = styled.div`
   display: flex;
-  flex: 40%;
+  flex: 50%;
   align-items: center;
+  justify-content: center;
+  color: white;
+  padding-right: 10%;
   
   background-color: black;
 `;
@@ -48,7 +51,7 @@ export const RightContainer = styled.div`
   flex: 20%;
   justify-content: flex-end;
   padding-right: 50px;
-  background-color: salmon;
+  background-color: black;
 `;
 
 export const NavbarInnerContainer = styled.div`

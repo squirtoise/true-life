@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./components/Button";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { Nav2 } from "./components/Nav2";
+import { Nav2 } from "./components/Navbar";
 
 export function App() {
   return (

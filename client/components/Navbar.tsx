@@ -1,18 +1,38 @@
-import { icon } from '@fortawesome/fontawesome-svg-core';
-import React from 'react';
-import Button from './Button';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-function Navbar(props) {
+import {
+  NavbarContainer,
+  LeftContainer,
+  RightContainer,
+  NavbarInnerContainer,
+  NavbarExtendedContainer,
+  NavbarLinkContainer,
+  MenuButton,
+  CenterContainer,
+} from './styles/Navbar.style';
+
+export function Nav2() {
+  const [extendNavbar, setExtendNavbar] = useState<boolean>(false);
   return (
-    <nav className='navbar'>
-      <ul>
-        <Button icon={} iconClass={} btnClass={} onClickFunc={() => {}} />
-        {/* placeholder */}
-        <p>TrueLife</p>
-        <Button icon={} iconClass={} btnClass={} onClickFunc={} />
-      </ul>
-    </nav>
+    <NavbarContainer>
+      <NavbarInnerContainer>
+        <LeftContainer>
+          <NavbarLinkContainer>
+            {/* Navbar links / buttons */}
+            <MenuButton
+              onClick={() => {
+                setExtendNavbar((prev) => !prev);
+              }}
+            >
+              {extendNavbar ? <> &#10005; </> : <> &#8801; </>}
+            </MenuButton>
+          </NavbarLinkContainer>
+        </LeftContainer>
+        <CenterContainer>TrueLife</CenterContainer>
+        <RightContainer>{/* Profile Icon/Img */}</RightContainer>
+      </NavbarInnerContainer>
+      <NavbarExtendedContainer></NavbarExtendedContainer>
+    </NavbarContainer>
   );
 }
-
-export default Navbar;
