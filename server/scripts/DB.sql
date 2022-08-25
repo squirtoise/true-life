@@ -14,9 +14,9 @@ CREATE TABLE "users" (
 	"first_name" VARCHAR(255) NOT NULL,
 	"last_name" VARCHAR(255) NOT NULL,
 	"streak" integer DEFAULT '0',
-	"window_start" TIME NOT NULL,
+	"window_start" VARCHAR(255) NOT NULL,
 	"avatar" VARCHAR(255) DEFAULT 'defaultAvatar.png',
-	"created_on" TIMESTAMP NOT NULL,
+	"created_on" VARCHAR(255) NOT NULL,
 	CONSTRAINT "users_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -29,7 +29,7 @@ CREATE TABLE "posts" (
   "caption" VARCHAR(255),
 	"likes" integer DEFAULT '0',
 	"dislikes" integer DEFAULT '0',
-	"posted_on" TIMESTAMP NOT NULL,
+	"posted_on" VARCHAR(255) NOT NULL,
 	CONSTRAINT "posts_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -40,7 +40,7 @@ CREATE TABLE "comments" (
 	"post" integer NOT NULL,
 	"content" varchar(255) NOT NULL,
 	"creator" integer NOT NULL,
-	"posted_on" TIMESTAMP NOT NULL,
+	"posted_on" VARCHAR(255) NOT NULL,
 	CONSTRAINT "comments_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
