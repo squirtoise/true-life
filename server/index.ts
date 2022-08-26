@@ -12,7 +12,7 @@ import userRouter from "./routes/userRouter";
 import postRouter from "./routes/postRouter";
 
 // __dirname TS replacement
-const filename = fileURLToPath(import.meta.url);
+// const filename = fileURLToPath(import.meta.url);
 
 // express constants
 const app: express.Application = express();
@@ -26,9 +26,9 @@ app.use(bodyParser.json());
 
 // serve static files
 if (process.env.NODE_ENV?.trim() === "production") {
-  app.use(express.static(path.join(path.dirname(filename), "../../build")));
+  app.use(express.static(path.join(__dirname, "../../build")));
 } else {
-  app.use(express.static(path.join(path.dirname(filename), "../client/")));
+  app.use(express.static(path.join(__dirname, "../client/")));
 }
 
 // routes here
@@ -39,3 +39,5 @@ app.use("/api/post", postRouter);
 app.listen(typeof PORT === "string" ? Number(PORT) : PORT, () =>
   console.log(`[Server] Started on port :${PORT}`)
 );
+
+export default app;

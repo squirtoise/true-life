@@ -1,5 +1,8 @@
 -- run this cmd to update DB
+-- PROD:
 -- psql -d "postgres://wuyjrcmo:S2DzIJ4AaYItitIH7l5S6JCmsThiXVLZ@heffalump.db.elephantsql.com/wuyjrcmo" -f server/scripts/DB.sql
+-- TEST:
+-- psql -d "postgres://cyztuzxu:RRptQLOnJjIBkx_MEsgQkXDQz4mtPBoj@heffalump.db.elephantsql.com/cyztuzxu" -f server/scripts/DB.sql
 
 DROP TABLE IF EXISTS "users" CASCADE;
 DROP TABLE IF EXISTS "posts" CASCADE;

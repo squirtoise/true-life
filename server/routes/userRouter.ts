@@ -16,7 +16,7 @@ router.get(
   }
 );
 
-// for testing purposes, returns all rows in user_friends table
+// for manual testing purposes, returns all rows in user_friends table
 router.get(
   "/friend/",
   friendController.friendTable,
