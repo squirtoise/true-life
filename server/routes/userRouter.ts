@@ -11,6 +11,7 @@ router.get('/', userController.all, (req: Request, res: Response, next: NextFunc
 });
 
 // returns one user object
+// req.params.id : userID
 router.get('/:id', userController.one, (req: Request, res: Response, next: NextFunction) => {
     return res.locals.user
         ? res.json(res.locals.user)
@@ -18,12 +19,14 @@ router.get('/:id', userController.one, (req: Request, res: Response, next: NextF
 });
 
 // returns array of user's friends (user objects)
+// req.params.id : ID of user whose friends are requested
 router.get('/friend/:id', friendController.all, (req: Request, res: Response, next: NextFunction) => {
     return res.json(res.locals.friends);
 });
 
 // returns array of user's friend requests (user objects)
-router.get('/friend/req/:id', friendController.all, (req: Request, res: Response, next: NextFunction) => {
+// req.params.id : ID of user whose friend reqs are requested
+router.get('/req/:id', friendController.requests, (req: Request, res: Response, next: NextFunction) => {
     return res.json(res.locals.requests);
 });
 
@@ -32,41 +35,44 @@ router.post('/', userController.new, (req: Request, res: Response, next: NextFun
     return res.json(res.locals.user);
 });
 
-// when a user accepts a friend request
-// req.params.id : user ID accepting the friend request
-router.post('/friend/:id', friendController.new, (req: Request, res: Response, next: NextFunction) => {
-    // returns the updated friendship row, and the new friendship row
-    const { updated, friend } = res.locals;
-    return res.json({ updated, friend });
-});
-
 // adds friend request to dB
-// req.params.id : user ID sending friend request
-router.post('/friend/req/:id', friendController.send, (req: Request, res: Response, next: NextFunction) => {
+// req.params.id : ID of user sending friend request
+router.post('/req/:id', friendController.send, (req: Request, res: Response, next: NextFunction) => {
     return res.locals.request ? res.json(res.locals.request) : res.status(404).send('Friend request failed');
 });
 
+// when a user accepts a friend request
+// req.params.id : ID of user accepting the friend request
+// req.body.friend : ID of friend who sent the request
+router.post('/friend/:id', friendController.new, (req: Request, res: Response, next: NextFunction) => {
+    // returns the updated friendship row, and the new friendship row
+    const { updated, friend } = res.locals;
+    return res.json({ updated, new: friend });
+});
+
 // updates and returns updated user
+// req.params.id : ID of user to be updated
 router.put('/:id', userController.put, (req: Request, res: Response, next: NextFunction) => {
     return res.json(res.locals.user);
 });
 
 // deletes user
+// req.params.id : ID of user to be deleted
 router.delete('/:id', userController.del, (req: Request, res: Response, next: NextFunction) => {
     return res.send('User deleted');
 });
 
 // deletes a friendship from dB
-// req.params.id : user ID deleting friendship
+// req.params.id : ID of user deleting friendship
 // req.body.friend : friend ID
 router.delete('/friend/:id', friendController.del, (req: Request, res: Response, next: NextFunction) => {
     return res.send('Friendship deleted');
 });
 
 // when a user denies a friend request
-// req.params.id : user denying (friend_id in the dB)
-// req.body.friend : user who requested (user_id in dB)
-router.delete('/friend/req/:id', friendController.deny, (req: Request, res: Response, next: NextFunction) => {
+// req.params.id : ID of user denying req (friend_id in dB row)
+// req.body.friend : ID of user who requested (user_id in dB row)
+router.delete('/req/:id', friendController.deny, (req: Request, res: Response, next: NextFunction) => {
     return res.send('Request deleted');
 });
 
