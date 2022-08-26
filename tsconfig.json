@@ -26,6 +26,6 @@
     // "server/**/*.js",
     "server/**/*.ts",
     "./@types/*",
-    "test/**/*.ts"
+    "__test__/**/*.ts"
   ]
 }
