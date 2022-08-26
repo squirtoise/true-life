@@ -3,7 +3,7 @@ const queries = {
   getUser: `SELECT * FROM users WHERE id = $1`,
 
   createUser: `INSERT INTO users (email, password, first_name, last_name, window_start, created_on) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-  updateUser: `UPDATE users SET email = $2, password = $3, first_name = $4, last_name = $5, streak = $6, window_start = $7, avatar = $8 WHERE id = $1`,
+  updateUser: `UPDATE users SET email = $2, password = $3, first_name = $4, last_name = $5, streak = $6, window_start = $7, avatar = $8 WHERE id = $1 RETURNING *`,
   deleteUser: `DELETE FROM users WHERE id = $1`,
 
   // returns row in table if friend is user's friend (and not requested)

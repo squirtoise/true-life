@@ -88,7 +88,57 @@ describe('REST route tests', () => {
             expect(response.body.window_start).toEqual(expectedUser.window);
         });
 
-        test('GET api/user/');
+        test('GET /api/user/', async () => {
+            const response = await request(app).get(`/api/user`).set('Accept', 'application/json');
+
+            expect(response.headers['content-type']).toMatch(/json/);
+            expect(response.status).toEqual(200);
+            expect(response.body[0].id).toEqual(1);
+        });
+
+        test('PUT api/user/:id', async () => {
+            const userID = 1;
+            const body = { first: 'test' };
+            const response = await request(app)
+                .put(`/api/user/${userID}`)
+                .send(body)
+                .set('Accept', 'application/json');
+
+            console.log(response);
+
+            expect(response.headers['content-type']).toMatch(/json/);
+            expect(response.status).toEqual(200);
+            expect(response.body[0].first_name).toEqual(body.first);
+        });
+
+        test('DELETE /api/user/:id', async () => {
+            let user = {
+                email: '3',
+                password: '1',
+                first: '1',
+                last: '1',
+                window: '01:00',
+            };
+
+            const userID = 3;
+            const user3 = await request(app).post('/api/user').send(user).set('Accept', 'application/json');
+            expect(user3.status).toEqual(200);
+
+            const delResponse = await request(app).delete(`/api/user/${3}`).set('Accept', 'application/json');
+            expect(delResponse.status).toEqual(200);
+        });
+
+        // test if a friend request gets sent
+
+        // test if get friend requests works
+
+        // test if a friend request gets denied
+
+        // test if a friend request gets accepted
+
+        // if get friend list works
+
+        // if delete friend works
     });
 });
 
