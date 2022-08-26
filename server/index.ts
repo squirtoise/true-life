@@ -10,6 +10,7 @@ import { fileURLToPath } from "url";
 
 import userRouter from "./routes/userRouter";
 import postRouter from "./routes/postRouter";
+import authRouter from "./routes/authRouter";
 
 // __dirname TS replacement
 // const filename = fileURLToPath(import.meta.url);
@@ -34,10 +35,14 @@ if (process.env.NODE_ENV?.trim() === "production") {
 // routes here
 app.use("/api/user", userRouter);
 app.use("/api/post", postRouter);
+app.use("/auth", authRouter);
 
 // server start
-app.listen(typeof PORT === "string" ? Number(PORT) : PORT, () =>
-  console.log(`[Server] Started on port :${PORT}`)
-);
+// prevent running this when testing
+if (process.env.NODE_ENV?.trim() !== "test") {
+  app.listen(typeof PORT === "string" ? Number(PORT) : PORT, () =>
+    console.log(`[Server] Started on port :${PORT}`)
+  );
+}
 
 export default app;
