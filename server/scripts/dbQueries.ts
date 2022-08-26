@@ -36,12 +36,12 @@ const queries = {
   //TEST THIS
   getFriendPosts: `SELECT * FROM posts WHERE creator IN (SELECT friend_id FROM user_friends WHERE user_id = $1)`,
 
-  createPost: `INSERT INTO posts (creator, picture, caption, posted_on) VALUES ($1, $2, $3, to_timestamp(${Date.now()} / 1000.0)) RETURNING *`,
+  createPost: `INSERT INTO posts (creator, picture, caption, posted_on) VALUES ($1, $2, $3, $4) RETURNING *`,
   updatePost: `UPDATE posts SET caption = $2 WHERE id = $1`,
   deletePost: `DELETE FROM posts WHERE id = $1`,
 
   getComments: `SELECT * FROM comments WHERE post = $1`,
-  addComment: `INSERT INTO comments (post, content, creator, posted_on) VALUES ($1, $2, $3, to_timestamp(${Date.now()} / 1000.0)) RETURNING *`,
+  addComment: `INSERT INTO comments (post, creator, content, posted_on) VALUES ($1, $2, $3, $4) RETURNING *`,
   updateComment: `UPDATE comments SET content = $2 WHERE id = $1`,
   deleteComment: `DELETE FROM comments WHERE id = $1`,
 };

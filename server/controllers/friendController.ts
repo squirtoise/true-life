@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 
 import db from "../scripts/dbModel";
 import queries from "../scripts/dbQueries";

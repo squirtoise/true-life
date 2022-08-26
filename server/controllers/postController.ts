@@ -19,8 +19,10 @@ postController.all = async (
     return res.status(500).send("DB Error:" + err);
   }
 
-  res.locals.posts = result.rows;
-  return next();
+  if (result.rows.length > 0) {
+    res.locals.posts = result.rows;
+    return next();
+  } else return res.status(404).send("No posts found in DB");
 };
 
 // queries DB for a user's post, saves returned post array to res.locals
@@ -38,8 +40,10 @@ postController.user = async (
     return res.status(500).send("DB Error:" + err);
   }
 
-  res.locals.posts = result.rows[0];
-  return next();
+  if (result.rows.length > 0) {
+    res.locals.posts = result.rows[0];
+    return next();
+  } else res.status(404).send("No user posts found in DB");
 };
 
 // TEST THIS
@@ -58,8 +62,10 @@ postController.friends = async (
     return res.status(500).send("DB Error:" + err);
   }
 
-  res.locals.posts = result.rows[0];
-  return next();
+  if (result.rows.length > 0) {
+    res.locals.posts = result.rows[0];
+    return next();
+  } else return res.status(404).send("No friend posts found in DB");
 };
 
 // queries DB for one post, saves returned post to res.locals
@@ -77,8 +83,10 @@ postController.one = async (
     return res.status(500).send("DB Error:" + err);
   }
 
-  res.locals.posts = result.rows[0];
+  if(result.rows.length > 0){
+  res.locals.post = result.rows[0];
   return next();
+  } else return res.status(404).send("Post not found in DB");
 };
 
 // adds new post to DB, saves returned post to res.locals

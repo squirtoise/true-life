@@ -9,9 +9,7 @@ router.get(
   "/",
   postController.all,
   (req: Request, res: Response, next: NextFunction) => {
-    return res.locals.posts.length > 0
-      ? res.json(res.locals.posts)
-      : res.status(404).send("No posts found in DB");
+    return res.json(res.locals.posts);
   }
 );
 
@@ -20,9 +18,7 @@ router.get(
   "/user/:id",
   postController.user,
   (req: Request, res: Response, next: NextFunction) => {
-    return res.locals.posts.length > 0
-      ? res.json(res.locals.posts)
-      : res.status(404).send("No user posts found in DB");
+    return res.json(res.locals.posts);
   }
 );
 
@@ -32,24 +28,22 @@ router.get(
   "/friends/:id",
   postController.friends,
   (req: Request, res: Response, next: NextFunction) => {
-    return res.locals.posts.length > 0
-      ? res.json(res.locals.posts)
-      : res.status(404).send("No friend posts found in DB");
+    return res.json(res.locals.posts);
   }
 );
 
 // returns a post
 // req.params.id : id of row in post table to return
 router.get("/:id", (req: Request, res: Response, next: NextFunction) => {
-  return res.locals.post > 0
-    ? res.json(res.locals.post)
-    : res.status(404).send("Post not found in DB");
+  return res.json(res.locals.post);
 });
 
 // returns array of all a post's comments
 router.get(
   "/comment/:id",
-  (req: Request, res: Response, next: NextFunction) => {}
+  (req: Request, res: Response, next: NextFunction) => {
+    return res.json(res.locals.comments);
+  }
 );
 
 // creates a post and returns new post
@@ -62,7 +56,9 @@ router.post("/:id", (req: Request, res: Response, next: NextFunction) => {
 // (id specified is post to be commented on)
 router.post(
   "/comment/:id",
-  (req: Request, res: Response, next: NextFunction) => {}
+  (req: Request, res: Response, next: NextFunction) => {
+    return res.json(res.locals.comment);
+  }
 );
 
 // updates a post and returns updated post
@@ -75,19 +71,24 @@ router.put("/:id", (req: Request, res: Response, next: NextFunction) => {
 // (id specified is of comment to be updated)
 router.put(
   "/comment/:id",
-  (req: Request, res: Response, next: NextFunction) => {}
+  (req: Request, res: Response, next: NextFunction) => {
+    return res.json(res.locals.comment);
+  }
 );
 
 // deletes a post
 // req.params.id : post ID
 router.delete("/:id", (req: Request, res: Response, next: NextFunction) => {
-    return res.send("Post deleted");
+  return res.send("Post deleted");
 });
 
 // deletes a comment
+// req.params.id : comment ID
 router.delete(
   "/comment/:id",
-  (req: Request, res: Response, next: NextFunction) => {}
+  (req: Request, res: Response, next: NextFunction) => {
+    return res.send("Comment deleted");
+  }
 );
 
 export default router;

@@ -41,8 +41,8 @@ CREATE TABLE "posts" (
 CREATE TABLE "comments" (
 	"id" serial NOT NULL,
 	"post" integer NOT NULL,
-	"content" varchar(255) NOT NULL,
 	"creator" integer NOT NULL,
+	"content" varchar(255) NOT NULL,
 	"posted_on" VARCHAR(255) NOT NULL,
 	CONSTRAINT "comments_pk" PRIMARY KEY ("id")
 ) WITH (
