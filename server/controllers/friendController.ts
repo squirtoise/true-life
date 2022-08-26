@@ -92,20 +92,43 @@ friendController.send = async (
   res: Response,
   next: NextFunction
 ) => {
-  const userCheck: any = await db.query(queries.getUser, [req.body.friend]);
+  let userCheck: any;
+
+  try {
+    userCheck = await db.query(queries.getUser, [req.body.friend]);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("DB Error:" + err);
+  }
+
   if (userCheck?.rows && userCheck.rows.length > 0) {
     // makes sure that they aren't already friends
-    const friendCheck: any = await db.query(queries.getFriend, [
-      req.params.id,
-      req.body.friend,
-    ]);
-    // if they are not friends
-    if (friendCheck.rows.length < 1) {
-      const queryResult: any = await db.query(queries.addFriendReq, [
+    let friendCheck: any;
+    try {
+      friendCheck = await db.query(queries.getFriend, [
         req.params.id,
         req.body.friend,
       ]);
-      res.locals.request = queryResult.rows[0];
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send("DB Error:" + err);
+    }
+
+    // if they are not friends
+    if (friendCheck.rows.length < 1) {
+      let result: any;
+
+      try {
+        result = await db.query(queries.addFriendReq, [
+          req.params.id,
+          req.body.friend,
+        ]);
+      } catch (err) {
+        console.log(err);
+        return res.status(500).send("DB Error:" + err);
+      }
+
+      res.locals.request = result.rows[0];
       return next();
     } else return res.status(400).send("Users are already friends");
   } else
@@ -123,16 +146,30 @@ friendController.deny = async (
   next: NextFunction
 ) => {
   // make sure friend request exists
-  const check: any = await db.query(queries.getFriendReq, [
-    req.body.friend,
-    req.params.id,
-  ]);
-  if (check.rows.length > 1) {
-    // delete request from dB
-    const deleteReq: any = await db.query(queries.deleteFriendReq, [
+  let check: any;
+  try {
+    check = await db.query(queries.getFriendReq, [
       req.body.friend,
       req.params.id,
     ]);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("DB Error:" + err);
+  }
+
+  if (check.rows.length > 1) {
+    // delete request from dB
+    let deleteReq: any;
+    try {
+      deleteReq = await db.query(queries.deleteFriendReq, [
+        req.body.friend,
+        req.params.id,
+      ]);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send("DB Error:" + err);
+    }
+
     return next();
   } else return res.status(404).send("Friend request not found");
 };
@@ -144,8 +181,14 @@ friendController.del = async (
   next: NextFunction
 ) => {
   // deletes both rows in user_friends table
-  await db.query(queries.deleteFriend, [req.params.id, req.body.friend]);
-  await db.query(queries.deleteFriend, [req.body.friend, req.params.id]);
+  try {
+    await db.query(queries.deleteFriend, [req.params.id, req.body.friend]);
+    await db.query(queries.deleteFriend, [req.body.friend, req.params.id]);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("DB Error:" + err);
+  }
+
   return next();
 };
 

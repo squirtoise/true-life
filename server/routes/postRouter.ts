@@ -54,7 +54,9 @@ router.get(
 
 // creates a post and returns new post
 // (id specified is user creating post)
-router.post("/:id", (req: Request, res: Response, next: NextFunction) => {});
+router.post("/:id", (req: Request, res: Response, next: NextFunction) => {
+  return res.json(res.locals.post);
+});
 
 // creates a comment and returns new comment
 // (id specified is post to be commented on)
@@ -64,7 +66,10 @@ router.post(
 );
 
 // updates a post and returns updated post
-router.put("/:id", (req: Request, res: Response, next: NextFunction) => {});
+// req.params.id : post ID
+router.put("/:id", (req: Request, res: Response, next: NextFunction) => {
+  return res.json(res.locals.post);
+});
 
 // updates a comment on a post
 // (id specified is of comment to be updated)
@@ -74,7 +79,10 @@ router.put(
 );
 
 // deletes a post
-router.delete("/:id", (req: Request, res: Response, next: NextFunction) => {});
+// req.params.id : post ID
+router.delete("/:id", (req: Request, res: Response, next: NextFunction) => {
+    return res.send("Post deleted");
+});
 
 // deletes a comment
 router.delete(

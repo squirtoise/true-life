@@ -10,7 +10,15 @@ postController.all = async (
   res: Response,
   next: NextFunction
 ) => {
-  const result: any = db.query(queries.getAllPosts);
+  let result: any;
+
+  try {
+    result = await db.query(queries.getAllPosts);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("DB Error:" + err);
+  }
+
   res.locals.posts = result.rows;
   return next();
 };
@@ -21,7 +29,15 @@ postController.user = async (
   res: Response,
   next: NextFunction
 ) => {
-  const result: any = db.query(queries.getUserPosts, [req.params.id]);
+  let result: any;
+
+  try {
+    result = await db.query(queries.getUserPosts, [req.params.id]);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("DB Error:" + err);
+  }
+
   res.locals.posts = result.rows[0];
   return next();
 };
@@ -33,7 +49,15 @@ postController.friends = async (
   res: Response,
   next: NextFunction
 ) => {
-  const result: any = db.query(queries.getFriendPosts, [req.params.id]);
+  let result: any;
+
+  try {
+    result = await db.query(queries.getFriendPosts, [req.params.id]);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("DB Error:" + err);
+  }
+
   res.locals.posts = result.rows[0];
   return next();
 };
@@ -44,7 +68,15 @@ postController.one = async (
   res: Response,
   next: NextFunction
 ) => {
-  const result: any = db.query(queries.getPost, [req.params.id]);
+  let result: any;
+
+  try {
+    result = await db.query(queries.getPost, [req.params.id]);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("DB Error:" + err);
+  }
+
   res.locals.posts = result.rows[0];
   return next();
 };
@@ -55,21 +87,70 @@ postController.new = async (
   res: Response,
   next: NextFunction
 ) => {
-    
+  const { picture, caption } = req.body;
+
+  if (picture && caption) {
+    let result: any;
+    const params: any[] = [
+      req.params.id,
+      picture,
+      caption,
+      new Date().toISOString().slice(0, -5),
+    ];
+
+    try {
+      result = await db.query(queries.createPost, params);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send("DB Error:" + err);
+    }
+
+    if (result.rows.length > 0) {
+      res.locals.post = result.rows[0];
+      return next();
+    } else return res.status(500).send("DB Error: Creating post failed");
+  } else
+    return res.status(400).send("Picture and/or caption not included in body");
 };
 
-// updates post in DB, saves returned post to res.locals
+// updates post's caption in DB, saves returned post to res.locals
 postController.put = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {};
+) => {
+  const { caption } = req.body;
+
+  if (caption) {
+    let result: any;
+
+    try {
+      result = await db.query(queries.updatePost, [req.params.id, caption]);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send("DB Error:" + err);
+    }
+
+    if (result.rows.length > 0) {
+      res.locals.post = result.rows[0];
+      return next();
+    } else return res.status(500).send("DB Error: Updating post failed");
+  } else return res.status(400).send("Caption not included in body");
+};
 
 // deletes post from DB
 postController.del = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {};
+) => {
+  try {
+    await db.query(queries.deletePost, [req.params.id]);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("DB Error:" + err);
+  }
+  return next();
+};
 
 export default postController;

@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import db from "../scripts/dbModel";
 import queries from "../scripts/dbQueries";
 
@@ -10,8 +10,16 @@ userController.all = async (
   res: Response,
   next: NextFunction
 ) => {
-  const queryResult: any = await db.query(queries.getAllUsers);
-  res.locals.users = queryResult.rows;
+  let result: any;
+
+  try {
+    result = await db.query(queries.getAllUsers);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("DB Error:" + err);
+  }
+
+  res.locals.users = result.rows;
   return next();
 };
 
@@ -22,8 +30,16 @@ userController.one = async (
   res: Response,
   next: NextFunction
 ) => {
-  const queryResult: any = await db.query(queries.getUser, [req.params.id]);
-  res.locals.user = queryResult.rows[0];
+  let result: any;
+
+  try {
+    result = await db.query(queries.getUser, [req.params.id]);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("DB Error:" + err);
+  }
+
+  res.locals.user = result.rows[0];
   return next();
 };
 
@@ -35,6 +51,7 @@ userController.new = async (
 ) => {
   // window format is ex. '13:30' (1:30PM);
   const { email, password, first, last, window } = req.body;
+
   const params: any[] = [
     email,
     password,
@@ -43,9 +60,17 @@ userController.new = async (
     window,
     new Date().toISOString().slice(0, -5),
   ];
-  const queryResult: any = await db.query(queries.createUser, params);
 
-  res.locals.user = queryResult.rows[0];
+  let result: any;
+
+  try {
+    result = await db.query(queries.createUser, params);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("DB Error:" + err);
+  }
+
+  res.locals.user = result.rows[0];
   return next();
 };
 
@@ -55,9 +80,15 @@ userController.put = async (
   res: Response,
   next: NextFunction
 ) => {
-  // grab current user data
-  const queryResult: any = await db.query(queries.getUser, [req.params.id]);
-  if (queryResult.rows > 0) {
+  let result: any;
+  try {
+    result = await db.query(queries.getUser, [req.params.id]);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("DB Error:" + err);
+  }
+
+  if (result.rows > 0) {
     const {
       oldEmail,
       oldPassword,
@@ -66,7 +97,7 @@ userController.put = async (
       oldStreak,
       oldWindow,
       oldAvatar,
-    } = queryResult.rows[0];
+    } = result.rows[0];
     let { email, password, first, last, streak, window, avatar } = req.body;
 
     // if req.body doesn't specify these data types, keep them as they were
@@ -78,7 +109,14 @@ userController.put = async (
     window = window ? window : oldWindow;
     avatar = avatar ? avatar : oldAvatar;
 
-    const updateUser: any = db.query(queries.updateUser, [req.params.id]);
+    let updateUser: any;
+    try {
+      updateUser = db.query(queries.updateUser, [req.params.id]);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send("DB Error:" + err);
+    }
+
     res.locals.user = updateUser.rows[0];
     return next();
   } else return res.status(404).send("User does not exist in dB");
@@ -90,7 +128,13 @@ userController.del = async (
   res: Response,
   next: NextFunction
 ) => {
-  await db.query(queries.deleteUser, [req.params.id]);
+  try {
+    await db.query(queries.deleteUser, [req.params.id]);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("DB Error:" + err);
+  }
+
   return next();
 };
 
