@@ -29,7 +29,7 @@ CREATE TABLE "posts" (
 	"id" serial NOT NULL,
 	"creator" integer NOT NULL,
 	"picture" VARCHAR(255) DEFAULT 'defaultPost.png',
-  "caption" VARCHAR(255),
+  	"caption" VARCHAR(255),
 	"likes" integer DEFAULT '0',
 	"dislikes" integer DEFAULT '0',
 	"posted_on" VARCHAR(255) NOT NULL,

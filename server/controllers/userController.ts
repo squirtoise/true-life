@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from "express";
+import bcrypt from "bcrypt";
 import db from "../scripts/dbModel";
 import queries from "../scripts/dbQueries";
+
+const saltRounds = 10;
 
 const userController: any = {};
 
@@ -52,9 +55,16 @@ userController.new = async (
   // window format is ex. '13:30' (1:30PM);
   const { email, password, first, last, window } = req.body;
 
+  const hash = await bcrypt.hash(password, saltRounds).catch((err) => {
+    if (err) {
+      console.log(`Server hashing error: ${err}`);
+      return res.status(500).send("Server hashing error");
+    }
+  });
+
   const params: any[] = [
     email,
-    password,
+    hash,
     first,
     last,
     window,
@@ -102,12 +112,26 @@ userController.put = async (
 
     // if req.body doesn't specify these data types, keep them as they were
     email = email ? email : oldEmail;
-    password = password ? password : oldPassword;
     first = first ? first : oldFirst;
     last = last ? last : oldLast;
     streak = streak ? streak : oldStreak;
     window = window ? window : oldWindow;
     avatar = avatar ? avatar : oldAvatar;
+
+    let hash: string | null = null;
+
+    if (password) hash = await bcrypt.hash(password, saltRounds);
+
+    const params = [
+      req.params.id,
+      email,
+      hash ? hash : password,
+      first,
+      last,
+      streak,
+      window,
+      avatar,
+    ];
 
     let updateUser: any;
     try {

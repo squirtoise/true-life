@@ -27,7 +27,7 @@ import request from "supertest";
 describe("REST route tests", () => {
   describe("User routes", () => {
     // should create a new user successfully
-    test.only("POST: User", async () => {
+    test("POST: User", async () => {
       let user = {
         email: "1",
         password: "1",
@@ -38,22 +38,25 @@ describe("REST route tests", () => {
 
       const user1 = await request(app)
         .post("/api/user")
-        .send(JSON.stringify(user))
+        .send(user)
         .set("Accept", "application/json");
 
-      expect(user1.headers["Content-Type"]).toMatch(/json/);
+      expect(user1.headers["content-type"]).toMatch(/json/);
       expect(user1.status).toEqual(200);
-      expect(user1.body).toEqual(user);
+      
+      expect(user1.body.id).toEqual(1);
+      expect(user1.body.email).toEqual(user.email);
+
 
       // add another
       user.email = "2";
 
       const user2 = await request(app)
         .post("/api/user")
-        .send(JSON.stringify(user))
+        .send(user)
         .set("Accept", "application/json");
 
-      expect(user2.headers["Content-Type"]).toMatch(/json/);
+      expect(user2.headers["content-type"]).toMatch(/json/);
       expect(user2.status).toEqual(200);
       expect(user2.body).toEqual(user);
     });
@@ -74,7 +77,7 @@ describe("REST route tests", () => {
         .get(`/api/user/${userID}`)
         .set("Accept", "application/json");
 
-      expect(response.headers["Content-Type"]).toMatch(/json/);
+      expect(response.headers["content-type"]).toMatch(/json/);
       expect(response.status).toEqual(200);
       expect(response.body).toEqual(expectedUser);
 
