@@ -29,6 +29,27 @@ export function App() {
         />
       </div>
       <Form />
+      <Form title="Sign Up"
+        formArr={[
+            {
+                label: "Email",
+                name: "email",
+                type: "text",
+            },
+            {
+                label: "Password",
+                name: "password",
+                type: "password",
+            },
+            {
+              label: "Confirm Password",
+              name: "confirmPassword",
+              type: "password",
+          },
+        ]}
+        submitBtn="Register"
+        onSubmit={(form: any) => console.log(form)}
+        redirect={null} />
     </>
   );
 }
