@@ -1,29 +1,25 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
-interface NavbarContainerProps  {
-    extendNavbar: boolean;
-};
-
-export const NavbarLink = styled(Link)`
+;
+export const NavbarLink = styled(Link) `
     color: white;
     font-size: x-large;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     margin: 10px;
+
     @media (max-width: 860px) {
         display: none;
     }
 `;
-
-export const NavbarLinkExtended = styled(Link)`
+export const NavbarLinkExtended = styled(Link) `
     color: white;
     font-size: x-large;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     margin: 10px;
 `;
-export const TrueLifeMobileLink = styled(Link)`
+export const TrueLifeMobileLink = styled(Link) `
     width: 40px;
     height: 40px;
     color: white;
@@ -36,9 +32,8 @@ export const TrueLifeMobileLink = styled(Link)`
         display: none;
     }
 `;
-
 // profile img /icon
-export const UserProfile = styled.img`
+export const UserProfile = styled.img `
     border-color: white;
     border: solid;
     border-radius: 50%;
@@ -46,24 +41,22 @@ export const UserProfile = styled.img`
     align-items: center;
     justify-content: center;
 `;
-
-export const NavbarContainer = styled.nav<NavbarContainerProps>`
+export const NavbarContainer = styled.nav `
     width: 100%;
     height: ${(props) => (props.extendNavbar ? '30vh' : '80px')};
     background-color: black;
     display: flex;
     flex-direction: column;
 `;
-
-export const LeftContainer = styled.div`
+export const LeftContainer = styled.div `
     display: flex;
-    flex: 50%;
+    flex: 30%;
     align-items: center;
     justify-content: center;
     // padding-left: 5%;
     background-color: black;
 `;
-export const CenterContainer = styled.div`
+export const CenterContainer = styled.div `
     display: flex;
     flex: 40%;
     align-items: center;
@@ -72,26 +65,22 @@ export const CenterContainer = styled.div`
     // padding-right: 10%;
     background-color: black;
 `;
-export const RightContainer = styled.div`
+export const RightContainer = styled.div `
     display: flex;
     flex: 30%;
     justify-content: center;
     // padding-right: 150px;
     background-color: black;
 `;
-
-export const NavbarInnerContainer = styled.div`
+export const NavbarInnerContainer = styled.div `
     width: 100%;
     height: 80px;
     display: flex;
 `;
-
-export const NavbarLinkContainer = styled.div`
+export const NavbarLinkContainer = styled.div `
     display: flex;
-    flex-direction: row;
-    justify-content: flex-between;
 `;
-export const MenuButton = styled.button`
+export const MenuButton = styled.button `
     width: 70px;
     height: 50px;
     background: none;
@@ -104,8 +93,7 @@ export const MenuButton = styled.button`
         display: none;
     }
 `;
-
-export const NavbarExtendedContainer = styled.div`
+export const NavbarExtendedContainer = styled.div `
     display: flex;
     flex-direction: column;
     align-items: center;
