@@ -18,7 +18,7 @@ const Date = styled.div`
 `
 
 const Card = styled.div`
-  background-color: #eb7a30;
+  background-color: #e2e2e2;
   border-radius: 5px;
   height: 360px;
   width: 320px;
@@ -27,7 +27,8 @@ const Card = styled.div`
   align-items: center;
   justify-content: center;
   // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  // box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 `
 
 const StyledPhoto = styled.img`
@@ -95,7 +96,6 @@ export default function Post({ imageURI, user, timeStamp, children }: PostProps)
           <Button icon={faHeartBroken} onClickFunc={() => console.log('Button clicked!')} />
         </IconWrapper>
       </Card>
-
     </div>
   )
 }
