@@ -1,5 +1,8 @@
 -- run this cmd to update DB
+-- PROD:
 -- psql -d "postgres://wuyjrcmo:S2DzIJ4AaYItitIH7l5S6JCmsThiXVLZ@heffalump.db.elephantsql.com/wuyjrcmo" -f server/scripts/DB.sql
+-- TEST:
+-- psql -d "postgres://cyztuzxu:RRptQLOnJjIBkx_MEsgQkXDQz4mtPBoj@heffalump.db.elephantsql.com/cyztuzxu" -f server/scripts/DB.sql
 
 DROP TABLE IF EXISTS "users" CASCADE;
 DROP TABLE IF EXISTS "posts" CASCADE;
@@ -26,7 +29,7 @@ CREATE TABLE "posts" (
 	"id" serial NOT NULL,
 	"creator" integer NOT NULL,
 	"picture" VARCHAR(255) DEFAULT 'defaultPost.png',
-  "caption" VARCHAR(255),
+  	"caption" VARCHAR(255),
 	"likes" integer DEFAULT '0',
 	"dislikes" integer DEFAULT '0',
 	"posted_on" VARCHAR(255) NOT NULL,
@@ -38,8 +41,8 @@ CREATE TABLE "posts" (
 CREATE TABLE "comments" (
 	"id" serial NOT NULL,
 	"post" integer NOT NULL,
-	"content" varchar(255) NOT NULL,
 	"creator" integer NOT NULL,
+	"content" varchar(255) NOT NULL,
 	"posted_on" VARCHAR(255) NOT NULL,
 	CONSTRAINT "comments_pk" PRIMARY KEY ("id")
 ) WITH (
