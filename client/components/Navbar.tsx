@@ -25,9 +25,9 @@ export function Navbar() {
                         {/* Navbar links / buttons */}
 
                         <NavbarLink to="/friends"> Friends </NavbarLink>
-                        <NavbarLink to="/streak">Streak </NavbarLink>
                         <NavbarLink to="/myProfile"> Profile </NavbarLink>
                         <MenuButton
+                        
                             onClick={() => {
                                 setExtendNavbar((prev) => !prev);
                             }}
@@ -36,13 +36,14 @@ export function Navbar() {
                         </MenuButton>
                     </NavbarLinkContainer>
                 </LeftContainer>
-                <CenterContainer>
+                <CenterContainer >
                     <NavbarLink to="/"> TrueLife </NavbarLink>
                     <TrueLifeMobileLink to="/">TL</TrueLifeMobileLink>
                 </CenterContainer>
                 <RightContainer>
                     {/* Profile Icon/Img */}
-                    <UserProfile src="#"></UserProfile>
+                    <UserProfile src="img/avatar_icon.png"/>
+                    <img src="img/TrueLife_icon.jpg" />
                 </RightContainer>
             </NavbarInnerContainer>
             {extendNavbar && (
