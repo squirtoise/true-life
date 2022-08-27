@@ -4,6 +4,7 @@ import Button from './components/Button';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Navbar } from './components/Navbar';
 import Home from './components/pages/Home';
+import Post from './components/Post';
 
 export function App() {
   return (
@@ -23,6 +24,11 @@ export function App() {
         <Button
           icon={faHeart}
           onClickFunc={() => console.log('Button clicked!')}
+        />
+        <Post 
+          imageURI="https://is.mediadelivery.fi/img/658/3dde460c031641508c85e03e3858af14.jpg.webp"
+          user="testUser"
+          timeStamp="8/26/2022 4:56AM"
         />
       </div>
     </>
