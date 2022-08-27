@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-interface NavbarContainerProps  {
+interface NavbarContainerProps {
     extendNavbar: boolean;
-};
+    streak: number;
+}
+
+interface NavbarClickableItemProp {
+    onClick: () => void;
+}
 
 export const NavbarLink = styled(Link)`
     color: white;
@@ -15,6 +20,18 @@ export const NavbarLink = styled(Link)`
     @media (max-width: 860px) {
         display: none;
     }
+`;
+export const NavbarLinkBadge = styled.button<NavbarClickableItemProp>`
+    background-color: white;
+    color: purple;
+    font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    margin: auto;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const NavbarLinkExtended = styled(Link)`
@@ -39,8 +56,9 @@ export const TrueLifeMobileLink = styled(Link)`
 `;
 
 // profile img /icon
-export const UserProfile = styled.img`
+export const UserProfile = styled.img<NavbarClickableItemProp>`
     border-color: white;
+
     border: solid;
     border-radius: 50%;
     display: flex;
