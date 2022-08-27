@@ -50,19 +50,22 @@ userController.new = async (req: Request, res: Response, next: NextFunction) => 
         }
     });
 
-    const params: any[] = [email, hash, first, last, window, new Date().toISOString().slice(0, -5)];
+    // makes sure all necessary body fields are included
+    if (email && password && first && last && window) {
+        const params: any[] = [email, hash, first, last, window, new Date().toISOString().slice(0, -5)];
 
-    let result: any;
+        let result: any;
 
-    try {
-        result = await db.query(queries.createUser, params);
-    } catch (err) {
-        console.log(err);
-        return res.status(500).send('DB Error:' + err);
-    }
+        try {
+            result = await db.query(queries.createUser, params);
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send('DB Error:' + err);
+        }
 
-    res.locals.user = result.rows[0];
-    return next();
+        res.locals.user = result.rows[0];
+        return next();
+    } else return res.status(400).send('Missing field(s) in body');
 };
 
 // updates user in DB, saves returned user to res.locals

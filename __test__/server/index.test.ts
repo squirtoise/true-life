@@ -27,8 +27,8 @@ import request from 'supertest';
 */
 
 describe('REST route tests', () => {
-    describe('User Router (/api/user routes)', () => {
-        describe('User CRUD', () => {
+    describe('User Router [/api/user routes]', () => {
+        describe('User CRUD Success', () => {
             // should create a new user successfully
             test('POST /api/user', async () => {
                 let user = {
@@ -139,7 +139,11 @@ describe('REST route tests', () => {
             });
         });
 
-        describe('Friend & Friend Req CRUD', () => {
+        // testing error handling within every route
+        // (will include user error and edge cases)
+        xdescribe('User CRUD Failure', () => {});
+
+        describe('Friend & Friend Req CRUD Success', () => {
             // if a friend request gets sent
             test('POST /api/user/req/:id', async () => {
                 const userID = 1;
@@ -159,10 +163,18 @@ describe('REST route tests', () => {
             });
 
             // if get friend requests works
+            // tests for both sent and received reqs
             test('GET /api/user/req/:id', async () => {
                 const userID = 1;
                 const friendID = 2;
-                const response = await request(app).get(`/api/user/req/${userID}`);
+                let response = await request(app).get(`/api/user/req/${userID}?reqs=sent`);
+
+                expect(response.status).toEqual(200);
+                expect(response.body[0].user_id).toEqual(userID);
+                expect(response.body[0].friend_id).toEqual(friendID);
+                expect(response.body[0].request).toEqual(true);
+
+                response = await request(app).get(`/api/user/req/${friendID}?reqs=received`);
 
                 expect(response.status).toEqual(200);
                 expect(response.body[0].user_id).toEqual(userID);
@@ -260,14 +272,16 @@ describe('REST route tests', () => {
 
                 // both users should now have no friends
                 response = await request(app).get(`/api/user/friend/${userID}`);
-                expect(response.body.length).toBeLessThan(1);
+                expect(Object.keys(response.body).length).toBeLessThan(1);
                 response = await request(app).get(`/api/user/friend/${friendID}`);
-                expect(response.body.length).toBeLessThan(1);
+                expect(Object.keys(response.body).length).toBeLessThan(1);
             });
         });
+
+        xdescribe('Friend & Friend Req CRUD Failure', () => {});
     });
 
-    describe('Post Router', () => {});
+    describe('Post Router [/api/post routes]', () => {});
 });
 
 export {};

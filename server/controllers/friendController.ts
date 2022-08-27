@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, query } from 'express';
 
 import db from '../scripts/dbModel';
 import queries from '../scripts/dbQueries';
@@ -7,22 +7,48 @@ const friendController: any = {};
 
 // queries DB for all user's friends, saves returned user array to res.locals
 friendController.all = async (req: Request, res: Response, next: NextFunction) => {
-    const queryResult: any = await db.query(queries.getFriends, [req.params.id]);
-    res.locals.friends = queryResult.rows;
-    return next();
+    let queryResult: any;
+    try {
+        queryResult = await db.query(queries.getFriends, [req.params.id]);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send('DB Error:' + err);
+    }
+
+    if (queryResult.rows.length > 0) {
+        res.locals.friends = queryResult.rows;
+        return next();
+    } else return res.status(404).send('No friends found under specified user ID');
 };
 
-// for testing purposes, returns all rows in friends table
-friendController.friendTable = async (req: Request, res: Response, next: NextFunction) => {
-    const queryResult: any = await db.query(queries.getAllFriends);
-    res.locals.friends = queryResult.rows;
-    return next();
-};
-
+// queries DB for a user's sent or received friend reqs
+// req.params.id : ID of the user in question
+// req.query.req : query in endpoint, should either equal 'sent' or 'received'
 friendController.requests = async (req: Request, res: Response, next: NextFunction) => {
-    const queryResult: any = await db.query(queries.getFriendReqs, [req.params.id]);
-    res.locals.requests = queryResult.rows;
-    return next();
+    const query =
+        req.query.reqs === 'sent'
+            ? queries.getSentFriendReqs
+            : req.query.reqs === 'received'
+            ? queries.getReceivedFriendReqs
+            : null;
+    if (query) {
+      let queryResult: any;
+      try{
+         queryResult = await db.query(query, [req.params.id]);
+        } catch (err) {
+          console.log(err);
+          return res.status(500).send('DB Error:' + err);
+      }
+      if(queryResult.rows.length > 0){
+        res.locals.requests = queryResult.rows;
+        return next();
+      }else return res.status(404).send(`No ${req.query.reqs}`)
+    } else
+        return res
+            .status(400)
+            .send(
+                `Endpoint requires 'req' query to either equal 'sent' (for sent friend reqs) or 'received' (for received friend reqs)`
+            );
 };
 
 // when a user accepts a friend request:

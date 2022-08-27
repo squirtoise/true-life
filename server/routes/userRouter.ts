@@ -26,6 +26,7 @@ router.get('/friend/:id', friendController.all, (req: Request, res: Response, ne
 
 // returns array of user's friend requests (user objects)
 // req.params.id : ID of user whose friend reqs are requested
+// req.query.reqs : 'sent' or 'received' must be specified
 router.get('/req/:id', friendController.requests, (req: Request, res: Response, next: NextFunction) => {
     return res.json(res.locals.requests);
 });
@@ -37,6 +38,7 @@ router.post('/', userController.new, (req: Request, res: Response, next: NextFun
 
 // adds friend request to dB
 // req.params.id : ID of user sending friend request
+// req.body.friend : ID of user receiving request
 router.post('/req/:id', friendController.send, (req: Request, res: Response, next: NextFunction) => {
     return res.locals.request ? res.json(res.locals.request) : res.status(404).send('Friend request failed');
 });
