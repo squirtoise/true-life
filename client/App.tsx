@@ -21,10 +21,6 @@ export function App() {
       </Router>
       <div>
         <h1>TEST.</h1>
-        <Button
-          icon={faHeart}
-          onClickFunc={() => console.log('Button clicked!')}
-        />
         <Post 
           imageURI="https://is.mediadelivery.fi/img/658/3dde460c031641508c85e03e3858af14.jpg.webp"
           user="testUser"
