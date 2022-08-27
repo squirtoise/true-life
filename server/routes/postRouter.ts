@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+import commentController from '../controllers/commentController';
 
 import postController from '../controllers/postController';
 
@@ -23,50 +24,57 @@ router.get('/friends/:id', postController.friends, (req: Request, res: Response,
 });
 
 // returns a post
-// req.params.id : ID of row in post table to return
-router.get('/:id', (req: Request, res: Response, next: NextFunction) => {
+// req.params.id : ID of post whose comments are requested
+router.get('/:id', postController.one, (req: Request, res: Response, next: NextFunction) => {
     return res.json(res.locals.post);
+});
+
+// returns array of all a user's comments
+// req.query.id : ID of post whose comments are requested
+// ex. : /api/post/comment?id=[user ID]
+router.get('/comment', commentController.user, (req: Request, res: Response, next: NextFunction) => {
+    return res.json(res.locals.comments);
 });
 
 // returns array of all a post's comments
 // req.params.id : ID of post whose comments are requested
-router.get('/comment/:id', (req: Request, res: Response, next: NextFunction) => {
+router.get('/comment/:id', commentController.all, (req: Request, res: Response, next: NextFunction) => {
     return res.json(res.locals.comments);
 });
 
 // creates a post and returns new post
 // req.params.id : ID of user creating post
-router.post('/:id', (req: Request, res: Response, next: NextFunction) => {
+router.post('/:id', postController.new, (req: Request, res: Response, next: NextFunction) => {
     return res.json(res.locals.post);
 });
 
 // creates a comment and returns new comment
 // req.params.id : ID of post being commented on
-router.post('/comment/:id', (req: Request, res: Response, next: NextFunction) => {
+router.post('/comment/:id', commentController.new, (req: Request, res: Response, next: NextFunction) => {
     return res.json(res.locals.comment);
 });
 
 // updates a post and returns updated post
 // req.params.id : ID of post to be updated
-router.put('/:id', (req: Request, res: Response, next: NextFunction) => {
+router.put('/:id', postController.put, (req: Request, res: Response, next: NextFunction) => {
     return res.json(res.locals.post);
 });
 
 // updates a comment on a post
 // req.params.id : ID of comment to be updated
-router.put('/comment/:id', (req: Request, res: Response, next: NextFunction) => {
+router.put('/comment/:id', commentController.put, (req: Request, res: Response, next: NextFunction) => {
     return res.json(res.locals.comment);
 });
 
 // deletes a post
 // req.params.id : ID of post to be deleted
-router.delete('/:id', (req: Request, res: Response, next: NextFunction) => {
+router.delete('/:id', postController.del, (req: Request, res: Response, next: NextFunction) => {
     return res.send('Post deleted');
 });
 
 // deletes a comment
 // req.params.id : ID of comment to be deleted
-router.delete('/comment/:id', (req: Request, res: Response, next: NextFunction) => {
+router.delete('/comment/:id', commentController.del, (req: Request, res: Response, next: NextFunction) => {
     return res.send('Comment deleted');
 });
 

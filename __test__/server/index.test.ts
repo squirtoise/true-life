@@ -189,14 +189,14 @@ describe('REST route tests', () => {
                 const body = { friend: userID };
 
                 // req.params.id is user denying the request (friend_id in DB)
-                const response = await request(app)
+                let response = await request(app)
                     .delete(`/api/user/req/${friendID}`)
                     .send(body)
                     .set('Accept', 'application/json');
 
                 expect(response.status).toEqual(200);
 
-                const reqCheck = await request(app).get(`/api/user/req/${userID}`);
+                response = await request(app).get(`/api/user/req/${userID}`);
 
                 // makes sure friend request is deleted
                 expect(Object.keys(response.body).length).toBe(0);
@@ -275,13 +275,44 @@ describe('REST route tests', () => {
                 expect(Object.keys(response.body).length).toBeLessThan(1);
                 response = await request(app).get(`/api/user/friend/${friendID}`);
                 expect(Object.keys(response.body).length).toBeLessThan(1);
+
+                // adds friends back for future tests
+                await request(app)
+                    .post(`/api/user/req/${userID}`)
+                    .send(body)
+                    .set('Accept', 'application/json');
+
+                body.friend = userID;
+
+                await request(app)
+                    .post(`/api/user/friend/${friendID}`)
+                    .send(body)
+                    .set('Accept', 'application/json');
             });
         });
 
         xdescribe('Friend & Friend Req CRUD Failure', () => {});
     });
 
-    describe('Post Router [/api/post routes]', () => {});
+    describe('Post Router [/api/post routes]', () => {
+        describe('Post CRUD Success', () => {
+            // post gets created
+            // get post
+            // get all user posts (add another post)
+            // get all user friend posts (add post to friend)
+            // updates a post
+            // deletes a post
+        });
+        xdescribe('Post CRUD Failure', () => {});
+        describe('Comment CRUD Success', () => {
+            // comment gets posted
+            // get post comments
+            // get user comments
+            // updates a comment
+            // deletes a comment
+        });
+        xdescribe('Comment CRUD Failure', () => {});
+    });
 });
 
 export {};

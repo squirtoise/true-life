@@ -43,6 +43,7 @@ const queries = {
     deletePost: `DELETE FROM posts WHERE id = $1`,
 
     getComments: `SELECT * FROM comments WHERE post = $1`,
+    getUserComments: `SELECT * FROM comments WHERE creator = $1`,
     addComment: `INSERT INTO comments (post, creator, content, posted_on) VALUES ($1, $2, $3, $4) RETURNING *`,
     updateComment: `UPDATE comments SET content = $2 WHERE id = $1`,
     deleteComment: `DELETE FROM comments WHERE id = $1`,

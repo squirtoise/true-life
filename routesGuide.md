@@ -189,3 +189,21 @@ DELETE /api/user/friend/:id
 ```
 
 <br>
+
+
+## Post Routes
+
+comment routes are below
+
+<br>
+
+
+### Get One User's Posts
+
+Returns an array of all of one user's friends <br> `/:id` param -> the ID of the user whose friend objects are requested
+
+```
+GET /api/user/friend/:id
+```
+
+<br>
