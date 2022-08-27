@@ -5,6 +5,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Navbar } from './components/Navbar';
 import Home from './components/pages/Home';
 import Post from './components/Post';
+import Form from './components/Form';
 
 export function App() {
   return (
@@ -27,6 +28,7 @@ export function App() {
           timeStamp="8/26/2022 4:56AM"
         />
       </div>
+      <Form />
     </>
   );
 }
