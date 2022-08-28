@@ -24,16 +24,20 @@ commentController.all = async (req: Request, res: Response, next: NextFunction) 
 // req.query.id : ID of user whose comments are requested
 commentController.user = async (req: Request, res: Response, next: NextFunction) => {
     let result: any;
-    try {
-        result = await db.query(queries.getUserComments, [req.query.id]);
-    } catch (err) {
-        console.log(err);
-        return res.status(500).send('DB Error:' + err);
-    }
-    if (result.rows.length > 1) {
-        res.locals.comments = result.rows;
-        return next();
-    } else return res.status(404).send('No comments found under specified post ID');
+
+    if (req.params.id) {
+        try {
+            result = await db.query(queries.getUserComments, [req.params.id]);
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send('DB Error:' + err);
+        }
+
+        if (result.rows.length > 0) {
+            res.locals.comments = result.rows;
+            return next();
+        } else return res.status(404).send('No comments found under specified post ID');
+    } else return res.status(400).send("No 'id' parameter provided in endpoint");
 };
 
 // adds new comment to DB, saves returned comment to res.locals

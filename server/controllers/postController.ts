@@ -21,7 +21,7 @@ postController.all = async (req: Request, res: Response, next: NextFunction) => 
     } else return res.status(404).send('No posts found in DB');
 };
 
-// queries DB for a user's post, saves returned post array to res.locals
+// queries DB for a user's posts, saves returned post array to res.locals
 postController.user = async (req: Request, res: Response, next: NextFunction) => {
     let result: any;
 
@@ -33,7 +33,7 @@ postController.user = async (req: Request, res: Response, next: NextFunction) =>
     }
 
     if (result.rows.length > 0) {
-        res.locals.posts = result.rows[0];
+        res.locals.posts = result.rows;
         return next();
     } else res.status(404).send('No user posts found in DB, either user ID is wrong or user has no posts');
 };
@@ -51,7 +51,7 @@ postController.friends = async (req: Request, res: Response, next: NextFunction)
     }
 
     if (result.rows.length > 0) {
-        res.locals.posts = result.rows[0];
+        res.locals.posts = result.rows;
         return next();
     } else
         return res

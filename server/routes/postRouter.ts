@@ -16,7 +16,6 @@ router.get('/user/:id', postController.user, (req: Request, res: Response, next:
     return res.json(res.locals.posts);
 });
 
-// TEST THIS
 // returns array of all user's friends' posts
 // req.params.id : ID of user whose friends' posts are requested
 router.get('/friends/:id', postController.friends, (req: Request, res: Response, next: NextFunction) => {
@@ -30,9 +29,8 @@ router.get('/:id', postController.one, (req: Request, res: Response, next: NextF
 });
 
 // returns array of all a user's comments
-// req.query.id : ID of post whose comments are requested
-// ex. : /api/post/comment?id=[user ID]
-router.get('/comment', commentController.user, (req: Request, res: Response, next: NextFunction) => {
+// req.params.id : ID of post whose comments are requested
+router.get('/comment/user/:id', commentController.user, (req: Request, res: Response, next: NextFunction) => {
     return res.json(res.locals.comments);
 });
 
