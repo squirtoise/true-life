@@ -1,6 +1,13 @@
 # REST Routes Reference
 
-## User Routes
+## Table of Contents
+
+-   [User Routes](#user)
+-   [Friend & Friend Req Routes](#friend)
+-   [Post Routes](#post)
+-   [Comment Routes](#comment)
+
+## <a id="user"></a> User Routes
 
 (Friend and friend request routes are below)
 
@@ -92,7 +99,7 @@ DELETE /api/user/:id
 
 <br>
 
-## Friend and Friend Req Routes
+## <a id="friend"></a> Friend and Friend Req Routes
 
 <br>
 
@@ -190,20 +197,149 @@ DELETE /api/user/friend/:id
 
 <br>
 
-
-## Post Routes
+## <a id="post"></a> Post Routes
 
 comment routes are below
 
 <br>
 
+### Get All Posts
+
+Returns an array of all posts <br>
+
+```
+GET /api/post/
+```
+
+<br>
 
 ### Get One User's Posts
 
-Returns an array of all of one user's friends <br> `/:id` param -> the ID of the user whose friend objects are requested
+Returns an array one user's posts <br> `/:id` param -> the ID of the user whose post objects are requested
 
 ```
-GET /api/user/friend/:id
+GET /api/post/user/:id
+```
+
+<br>
+
+### Get One User's Friends' Posts
+
+Returns an array one user's friends' posts <br> `/:id` param -> the ID of the user whose friends' post objects are requested
+
+```
+GET /api/post/friends/:id
+```
+
+<br>
+
+### Get One Post
+
+Returns a post object <br> `/:id` param -> the ID of the post requested
+
+```
+GET /api/post/:id
+```
+
+<br>
+
+### Create a Post
+
+Adds a new post to DB and returns the new post object <br> `/:id` param -> the ID of the user creating the post
+
+```
+POST /api/post/:id
+```
+
+Body format:
+
+```
+body: {
+    picture: [string] // the filename.[ext] of the picture uploaded to S3
+    caption: [string] // the post caption
+}
+```
+
+<br>
+
+### Update a Post
+
+Updates a post in the DB and returns the updated post object <br> `/:id` param -> the ID of the post to be updated
+
+```
+PUT /api/post/:id
+```
+
+Body format (all fields optional):
+
+```
+body: {
+    caption: [string] // the post caption
+}
+```
+
+<br>
+
+### Delete a Post
+
+Deletes a post from the DB. <br> `/:id` param -> the ID of the post to be deleted
+
+```
+DELETE /api/post/:id
+```
+
+<br>
+
+## <a id="comment"></a> Comment Routes
+
+<br>
+
+### Get All User Comments
+
+Returns an array of all of one user's comments <br> `/:id` param -> ID of user whose comments are requested <br>
+
+```
+GET /api/post/comment/user/:id
+```
+
+<br>
+
+### Get All of a Post's Comments
+
+Returns an array of all of one post's comments <br> `/:id` param -> ID of post whose comments are being requested <br>
+
+```
+GET /api/post/comment/:id
+```
+
+<br>
+
+### Add a Comment to a Post
+
+Creates a new comment and returns the new comment object <br> `/:id` param -> ID of post being commented on <br>
+
+```
+POST /api/post/comment/:id
+```
+
+<br>
+
+### Update a Comment on a Post
+
+Updates a comment and returns the updated comment object <br> `/:id` param -> ID of comment to be updated <br>
+
+```
+PUT /api/post/comment/:id
+```
+
+<br>
+
+### Delete a Comment
+
+Deletes a comment from the DB <br> `/:id` param -> ID of comment to be deleted <br>
+
+```
+DELETE /api/post/comment/:id
 ```
 
 <br>
