@@ -28,23 +28,22 @@ const queries = {
     //...then adds a new row with other user as their own friend
     addFriend: `INSERT INTO user_friends (user_id, friend_id, request) VALUES ($1, $2, FALSE) RETURNING *`,
 
-    //TEST THIS
     deleteFriend: `DELETE FROM user_friends WHERE user_id = $1 AND friend_id = $2`,
     deleteFriendReq: `DELETE FROM user_friends WHERE user_id = $1 AND friend_id = $2 AND request = TRUE`,
 
     getAllPosts: `SELECT * FROM posts`,
     getPost: `SELECT * FROM posts WHERE id = $1`,
     getUserPosts: `SELECT * FROM posts WHERE creator = $1`,
-    //TEST THIS
     getFriendPosts: `SELECT * FROM posts WHERE creator IN (SELECT friend_id FROM user_friends WHERE user_id = $1)`,
 
     createPost: `INSERT INTO posts (creator, picture, caption, posted_on) VALUES ($1, $2, $3, $4) RETURNING *`,
-    updatePost: `UPDATE posts SET caption = $2 WHERE id = $1`,
+    updatePost: `UPDATE posts SET caption = $2 WHERE id = $1 RETURNING *`,
     deletePost: `DELETE FROM posts WHERE id = $1`,
 
     getComments: `SELECT * FROM comments WHERE post = $1`,
+    getUserComments: `SELECT * FROM comments WHERE creator = $1`,
     addComment: `INSERT INTO comments (post, creator, content, posted_on) VALUES ($1, $2, $3, $4) RETURNING *`,
-    updateComment: `UPDATE comments SET content = $2 WHERE id = $1`,
+    updateComment: `UPDATE comments SET content = $2 WHERE id = $1 RETURNING *`,
     deleteComment: `DELETE FROM comments WHERE id = $1`,
 };
 
