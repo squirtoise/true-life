@@ -24,13 +24,15 @@ export const NavbarLink = styled(Link)`
     }
 `;
 export const NavbarLinkBadge = styled.button<NavbarClickableItemProp>`
+    position: absolute;
+
     max-width: 100%;
     background-color: white;
     color: ${randomColor};
     font-size: x-large;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
-    margin: 25px 5px 25px 5px;
+    margin: 25px 0px 25px 0px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -75,7 +77,7 @@ export const UserProfile = styled.img<NavbarClickableItemProp>`
     color: white;
     border: solid;
     border-radius: 50%;
-    margin: 5px;
+    margin: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -98,8 +100,8 @@ export const LeftContainer = styled.div`
     display: flex;
     flex: 30%;
     align-items: center;
-    justify-content: center;
-    // padding-left: 5%;
+    justify-content: flex-start;
+    padding-left: 1%;
     background-color: black;
 `;
 export const CenterContainer = styled.div`
@@ -108,14 +110,13 @@ export const CenterContainer = styled.div`
     align-items: center;
     justify-content: center;
     color: white;
-    // padding-right: 10%;
     background-color: black;
 `;
 export const RightContainer = styled.div`
     display: flex;
     flex: 30%;
-    justify-content: center;
-    // padding-right: 150px;
+    justify-content: flex-end;
+    padding-right: 1%;
     background-color: black;
 `;
 
