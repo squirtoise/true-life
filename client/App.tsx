@@ -31,14 +31,14 @@ export function App() {
                     <Route path="/camera" element={<CameraSnapPage />} />
                 </Routes>
             </Router>
-            <div>
+            {/* <div>
                 <h1>TEST.</h1>
                 <Post
                     imageURI="https://is.mediadelivery.fi/img/658/3dde460c031641508c85e03e3858af14.jpg.webp"
                     user="testUser"
                     timeStamp="8/26/2022 4:56AM"
                 />
-            </div>
+            </div> */}
         </>
     );
 }

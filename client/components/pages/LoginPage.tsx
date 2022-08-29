@@ -9,7 +9,8 @@ function LoginPage() {
         <div>
             <h1>Login Page</h1>
             {/* Button here as temp way to get to homepage without auth */}
-            <p>click button to go to feed - temp until auth in place</p>
+            <h3>CLICK HEART to go to feed</h3>
+            <p>- temp until auth in place</p>
             <Button icon={faHeart} onClickFunc={() => navigate('/feed')} />
         </div>
     );
