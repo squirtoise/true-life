@@ -26,7 +26,7 @@ export const NavbarLinkBadge = styled.button<NavbarClickableItemProp>`
     font-size: x-large;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
-    margin: auto;
+    margin: 25px 5px 25px 5px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
