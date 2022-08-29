@@ -53,7 +53,9 @@ export function Navbar() {
                 <RightContainer>
                     {/* Profile Icon/Img - need to be a button?*/}
                     <NavbarLinkBadge onClick={() => navigate('/myProfile')}>{streak}</NavbarLinkBadge>
-                    <UserProfile onClick={() => navigate('/myProfile')} src="#"></UserProfile>
+                    <UserProfile onClick={() => navigate('/myProfile')} src="img/avatar_icon.png">
+                        <img src="img/TrueLife_icon.jpg" />
+                    </UserProfile>
                 </RightContainer>
             </NavbarInnerContainer>
             {extendNavbar && (

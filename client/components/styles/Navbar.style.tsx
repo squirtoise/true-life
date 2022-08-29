@@ -16,7 +16,6 @@ export const NavbarLink = styled(Link)`
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     margin: 10px;
-
     @media (max-width: 860px) {
         display: none;
     }
@@ -76,26 +75,26 @@ export const NavbarContainer = styled.nav<NavbarContainerProps>`
 
 export const LeftContainer = styled.div`
     display: flex;
-    flex: 30%;
+    flex: 50%;
     align-items: center;
-    padding-left: 5%;
+    justify-content: center;
+    // padding-left: 5%;
     background-color: black;
 `;
 export const CenterContainer = styled.div`
     display: flex;
-    flex: 50%;
+    flex: 40%;
     align-items: center;
     justify-content: center;
     color: white;
-    padding-right: 10%;
-
+    // padding-right: 10%;
     background-color: black;
 `;
 export const RightContainer = styled.div`
     display: flex;
-    flex: 20%;
-    justify-content: flex-end;
-    padding-right: 50px;
+    flex: 30%;
+    justify-content: center;
+    // padding-right: 150px;
     background-color: black;
 `;
 
@@ -107,6 +106,8 @@ export const NavbarInnerContainer = styled.div`
 
 export const NavbarLinkContainer = styled.div`
     display: flex;
+    flex-direction: row;
+    justify-content: flex-between;
 `;
 export const MenuButton = styled.button`
     width: 70px;
