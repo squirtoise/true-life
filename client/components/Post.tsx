@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import Button from "./Button";
 import { faFire, faComment, faHeartBroken } from '@fortawesome/free-solid-svg-icons';
 
-document.body.style.backgroundColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+// document.body.style.backgroundColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+ const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
 
 interface PostProps {
   imageURI: string;
