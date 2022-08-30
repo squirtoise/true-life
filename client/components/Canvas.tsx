@@ -1,16 +1,96 @@
 import React, { useRef, useEffect, useState } from 'react';
+import Button from './Button';
+import { CameraContainer, SnappedPhoto, Video } from './styles/Camera.style';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
+
+// function Canvas() {
+//     const startVideo = () => {
+//         navigator.mediaDevices.getUserMedia({ video: true });
+//     };
+
+//     useEffect(() => {
+//         startVideo();
+//     }, []);
+//     return (
+//         <>
+//             <CameraContainer>
+//                 <video height={500} width={500} muted autoPlay className="videoFeed"></video>
+//                 <p>TEST</p>
+//             </CameraContainer>
+//         </>
+//     );
+// }
+
+// export default Canvas;
+
+//************************************************************ */
 
 function Canvas() {
-    const canvasRef = useRef(null);
-    const [imageDataURL, setImageDataURL] = useState(null);
+    const videoRef = useRef<any>();
+    const photoRef = useRef<any>();
+
+    const [hasPhoto, setHasPhoto] = useState(false);
+
+    const getVideo = () => {
+        navigator.mediaDevices
+            .getUserMedia({ video: { width: 1920, height: 1080 } })
+            .then((stream) => {
+                let video = videoRef.current;
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
+    const takePhoto = () => {
+        const width = 414;
+        const height = width / (16 / 9);
+
+        let video = videoRef.current;
+        let photo = photoRef.current;
+
+        let ctx = photo.getContext('2d');
+        ctx.drawImage(video, 0, 0, width, height);
+        setHasPhoto(true);
+    };
+
+    const closePhoto = () => {
+        let photo = photoRef.current;
+        let ctx = photo.getContext('2d');
+
+        ctx.clearRect(0, 0, photo.width, photo.height);
+
+        setHasPhoto(false);
+    };
+
     useEffect(() => {
-        
-        navigator.mediaDevices.getUserMedia({ video: true });
-    }, []);
-    return <canvas ref={canvasRef} />;
+        getVideo();
+    }, [videoRef]);
+
+    return (
+        <>
+            <CameraContainer>
+                <Video ref={videoRef}></Video>
+                <Button
+                    icon={faCamera}
+                    onClickFunc={() => {
+                        takePhoto();
+                    }}
+                ></Button>
+            </CameraContainer>
+            <SnappedPhoto>
+                <canvas ref={photoRef}></canvas>
+                <button>CLOSE</button>
+            </SnappedPhoto>
+        </>
+    );
 }
 
 export default Canvas;
+
+//************************************************************************** */
 
 // navigator.mediaDevices.getUserMedia
 
