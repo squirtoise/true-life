@@ -10,8 +10,6 @@ import FriendsFeedPage from './components/pages/FriendsFeedPage';
 import MyProfilePage from './components/pages/MyProfilePage';
 import CameraSnapPage from './components/pages/CameraSnapPage';
 import Layout from './components/Layout';
-import Post from './components/Post';
-import { Navbar } from './components/Navbar';
 
 export function App() {
     return (
@@ -31,14 +29,6 @@ export function App() {
                     <Route path="/camera" element={<CameraSnapPage />} />
                 </Routes>
             </Router>
-            {/* <div>
-                <h1>TEST.</h1>
-                <Post
-                    imageURI="https://is.mediadelivery.fi/img/658/3dde460c031641508c85e03e3858af14.jpg.webp"
-                    user="testUser"
-                    timeStamp="8/26/2022 4:56AM"
-                />
-            </div> */}
         </>
     );
 }
