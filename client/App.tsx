@@ -9,6 +9,9 @@ import FriendsFeedPage from './components/pages/FriendsFeedPage';
 import MyProfilePage from './components/pages/MyProfilePage';
 import CameraSnapPage from './components/pages/CameraSnapPage';
 import Layout from './components/Layout';
+import Post from './components/Post';
+import { Navbar } from './components/Navbar';
+// import Upload from './components/Upload';
 
 export function App() {
     return (
@@ -17,6 +20,10 @@ export function App() {
                 {/* <Navbar /> */}
                 <Routes>
                     <Route path="/" element={<LoginPage />} />
+
+                    {/* FILE UPLOAD TEST */}
+                    {/* <Route path='/upload' element={<Upload/>}/> */}
+
                     <Route path="/signup" element={<SignUpPage />} />
                     <Route element={<Layout />}>
                         <Route path="/feed" element={<FeedPage />} />
