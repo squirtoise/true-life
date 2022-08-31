@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-
 import FeedPage from './components/pages/FeedPage';
 import FriendsListPage from './components/pages/FriendsListPage';
 import LoginPage from './components/pages/LoginPage';
@@ -25,8 +24,8 @@ export function App() {
                         <Route path="/friends/:id" element={<FriendsFeedPage />} />
                         <Route path="/streak" />
                         <Route path="/myProfile" element={<MyProfilePage />} />
+                        <Route path="/camera" element={<CameraSnapPage />} />
                     </Route>
-                    <Route path="/camera" element={<CameraSnapPage />} />
                 </Routes>
             </Router>
         </>
