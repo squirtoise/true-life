@@ -6,19 +6,21 @@ export const CameraContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 80vw;
-    height: auto;
-`;
-
-export const SnappedPhoto = styled.div`
-    position: fixed;
-    top: 0;
-    left: 100%;
     width: 100%;
     height: 100%;
+    z-index: 1;
+`;
+
+export const SnappedPhoto = styled.div<any>`
+    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
+    z-index: 0;
 `;
 
 interface VideoProps {

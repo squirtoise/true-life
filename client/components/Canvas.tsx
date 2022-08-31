@@ -3,33 +3,12 @@ import Button from './Button';
 import { CameraContainer, SnappedPhoto, Video } from './styles/Camera.style';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
-// function Canvas() {
-//     const startVideo = () => {
-//         navigator.mediaDevices.getUserMedia({ video: true });
-//     };
-
-//     useEffect(() => {
-//         startVideo();
-//     }, []);
-//     return (
-//         <>
-//             <CameraContainer>
-//                 <video height={500} width={500} muted autoPlay className="videoFeed"></video>
-//                 <p>TEST</p>
-//             </CameraContainer>
-//         </>
-//     );
-// }
-
-// export default Canvas;
-
-//************************************************************ */
-
 function Canvas() {
     const videoRef = useRef<any>();
     const photoRef = useRef<any>();
 
     const [hasPhoto, setHasPhoto] = useState(false);
+    const [snappedPhoto, setSnappedPhoto] = useState<any>({ imageDataURL: null });
 
     const getVideo = () => {
         navigator.mediaDevices
@@ -51,9 +30,18 @@ function Canvas() {
         let video = videoRef.current;
         let photo = photoRef.current;
 
+        photo.width = width;
+        photo.height = height;
+
         let ctx = photo.getContext('2d');
         ctx.drawImage(video, 0, 0, width, height);
         setHasPhoto(true);
+        setSnappedPhoto(() => {
+            console.log('PHOTO DATA URL', photo.toDataURL());
+            {
+                imageDataURL: photo.toDataURL();
+            }
+        });
     };
 
     const closePhoto = () => {
