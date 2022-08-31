@@ -7,13 +7,23 @@ import compression from 'compression';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import aws from 'aws-sdk';
 
 import userRouter from './routes/userRouter';
 import postRouter from './routes/postRouter';
 import authRouter from './routes/authRouter';
 
-// __dirname TS replacement
-// const filename = fileURLToPath(import.meta.url);
+// FOR DEV/PROD ENV: UNCOMMENT LINE BELOW
+// note: dotenv conditional does not fix parsing issue with jest env
+const filename = fileURLToPath(import.meta.url);
+
+// AWS setup
+aws.config.update({
+    secretAccessKey: process.env.AWS_SECRET_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    region: 'us-west-1',
+    signatureVersion: 'v4',
+});
 
 // express constants
 const app: express.Application = express();
@@ -27,11 +37,17 @@ app.use(bodyParser.json());
 
 // serve static files
 if (process.env.NODE_ENV?.trim() === 'production') {
-    // app.use(express.static(path.join(path.dirname(filename), '../../build')));
-    app.use(express.static(path.join(__dirname, '../../build')));
+    // FOR DEV/PROD ENV: UNCOMMENT LINE BELOW
+    app.use(express.static(path.join(path.dirname(filename), '../../build')));
+
+    // FOR TESTING ENV: UNCOMMENT LINE BELOW
+    // app.use(express.static(path.join(__dirname, '../../build')));
 } else {
-    // app.use(express.static(path.join(path.dirname(filename), '../client/')));
-    app.use(express.static(path.join(__dirname, '../client/')));
+    // FOR DEV/PROD ENV: UNCOMMENT LINE BELOW
+    app.use(express.static(path.join(path.dirname(filename), '../client/')));
+
+    // FOR TESTING ENV: UNCOMMENT LINE BELOW
+    // app.use(express.static(path.join(__dirname, '../client/')));
 }
 
 // routes here
