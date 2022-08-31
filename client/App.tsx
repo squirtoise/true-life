@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-
 import FeedPage from './components/pages/FeedPage';
 import FriendsListPage from './components/pages/FriendsListPage';
 import LoginPage from './components/pages/LoginPage';
@@ -32,18 +31,10 @@ export function App() {
                         <Route path="/friends/:id" element={<FriendsFeedPage />} />
                         <Route path="/streak" />
                         <Route path="/myProfile" element={<MyProfilePage />} />
+                        <Route path="/camera" element={<CameraSnapPage />} />
                     </Route>
-                    <Route path="/camera" element={<CameraSnapPage />} />
                 </Routes>
             </Router>
-            {/* <div>
-                <h1>TEST.</h1>
-                <Post
-                    imageURI="https://is.mediadelivery.fi/img/658/3dde460c031641508c85e03e3858af14.jpg.webp"
-                    user="testUser"
-                    timeStamp="8/26/2022 4:56AM"
-                />
-            </div> */}
         </>
     );
 }
