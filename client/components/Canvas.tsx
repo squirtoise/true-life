@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Button from './Button';
-import { CameraContainer, SnappedPhoto, Video } from './styles/Camera.style';
+import { CameraContainer, SnappedPhoto, Video, CanvasComp, PicButtonContainer } from './styles/Camera.style';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 function Canvas() {
@@ -60,7 +60,16 @@ function Canvas() {
     return (
         <>
             <CameraContainer>
-                <Video ref={videoRef}></Video>
+                <Video ref={videoRef} hasPhoto={hasPhoto}></Video>
+                <SnappedPhoto hasPhoto={hasPhoto}>
+                    <CanvasComp ref={photoRef}></CanvasComp>
+                    <PicButtonContainer>
+                        <button onClick={closePhoto}>Retake</button>
+                        <button>Add Caption</button>
+
+                        <button>Post</button>
+                    </PicButtonContainer>
+                </SnappedPhoto>
                 <Button
                     icon={faCamera}
                     onClickFunc={() => {
@@ -68,18 +77,8 @@ function Canvas() {
                     }}
                 ></Button>
             </CameraContainer>
-            <SnappedPhoto>
-                <canvas ref={photoRef}></canvas>
-                <button>CLOSE</button>
-            </SnappedPhoto>
         </>
     );
 }
 
 export default Canvas;
-
-
-
-
-
-
