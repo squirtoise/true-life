@@ -7,6 +7,8 @@ import {
     CanvasComp,
     PicButtonContainer,
     CaptionsInput,
+    TakePhotoButton,
+    SnapBtnContainer,
 } from './styles/Camera.style';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
@@ -95,7 +97,7 @@ function Canvas() {
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
         setCaptionInput((p) => e.target.value);
 
-    const test = () => {
+    const captionExists = () => {
         if (savedCaption.length) setPreviewCaption(true);
     };
 
@@ -105,6 +107,7 @@ function Canvas() {
 
     return (
         <>
+            <SnapBtnContainer></SnapBtnContainer>
             <CameraContainer>
                 <Video ref={videoRef} hasPhoto={hasPhoto}></Video>
                 <SnappedPhoto hasPhoto={hasPhoto}>
@@ -114,59 +117,58 @@ function Canvas() {
                             <p>{savedCaption}</p>
                         </>
                     )}
-                    <PicButtonContainer>
-                        <button onClick={closePhoto}>Retake</button>
-                        <button
-                            onClick={() => {
-                                setWriteCaption((prev) => !prev);
-                                setCaptionInput('');
-                            }}
-                        >
-                            {writeCaption ? 'Cancel' : 'Add Caption'}
-                        </button>
+                </SnappedPhoto>
+                <SnapBtnContainer>
+                    <TakePhotoButton onClick={() => takePhoto()}></TakePhotoButton>
+                </SnapBtnContainer>
 
+                <PicButtonContainer hasPhoto={hasPhoto}>
+                    <button onClick={closePhoto}>Retake</button>
+                    <button
+                        onClick={() => {
+                            setWriteCaption((prev) => !prev);
+                            setCaptionInput('');
+                            console.log(writeCaption);
+                        }}
+                    >
+                        {writeCaption ? 'Cancel' : 'Add Caption'}
+                    </button>
+
+                    <button
+                        onClick={() => {
+                            uploadPost();
+                        }}
+                    >
+                        Post
+                    </button>
+                </PicButtonContainer>
+                {writeCaption && (
+                    <PicButtonContainer hasPhoto={hasPhoto}>
+                        <CaptionsInput
+                            type={'text'}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                onChangeHandler(e);
+                                console.log(captionInput);
+                            }}
+                        ></CaptionsInput>
                         <button
                             onClick={() => {
-                                uploadPost();
+                                setSaveCaption(captionInput);
+                                //if caption was saved, preview it under photo
+                                captionExists();
                             }}
                         >
-                            Post
+                            Save Caption
+                        </button>
+                        <button
+                            onClick={() => {
+                                setSaveCaption('');
+                            }}
+                        >
+                            Delete Caption
                         </button>
                     </PicButtonContainer>
-                    {writeCaption && (
-                        <PicButtonContainer>
-                            <CaptionsInput
-                                type={'text'}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                    onChangeHandler(e);
-                                    console.log(captionInput);
-                                }}
-                            ></CaptionsInput>
-                            <button
-                                onClick={() => {
-                                    setSaveCaption(captionInput);
-                                    // setPreviewCaption((prev) => !prev);
-                                    test();
-                                }}
-                            >
-                                Save Caption
-                            </button>
-                            <button
-                                onClick={() => {
-                                    setSaveCaption('');
-                                }}
-                            >
-                                Delete Caption
-                            </button>
-                        </PicButtonContainer>
-                    )}
-                </SnappedPhoto>
-                <Button
-                    icon={faCamera}
-                    onClickFunc={() => {
-                        takePhoto();
-                    }}
-                ></Button>
+                )}
             </CameraContainer>
         </>
     );
