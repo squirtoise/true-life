@@ -3,14 +3,14 @@ import Post from '../Post';
 
 function FeedPage() {
 
-    const [feed, setFeed] = React.useState([]);
+    const [feed, setFeed] = useState<any[]>([]);
     
     React.useEffect(() => {
 
         const getFeed =  async () => {
             let mounted = true;
             try {
-                const response = await fetch('/');
+                const response = await fetch('/api/post/');
                 const data = await response.json();
                 if (response.ok)
                     if (mounted) {
@@ -42,7 +42,7 @@ function FeedPage() {
                 />
                 <div>
                     {feed.map((post, index) => {
-                        <Post key={index} user={post.user} timeStamp={post.timestamp} imageURI={post.image}/>
+                       return <Post key={index} user={post.creator} timeStamp={post.posted_on} imageURI={post.picture}/>
                     })}
                 </div>
             </div>
