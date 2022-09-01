@@ -14,6 +14,7 @@ export const CameraContainer = styled.div<any>`
 
 export const SnappedPhoto = styled.div<any>`
     position: relative;
+    color: white;
     display: ${(props) => (props.hasPhoto ? 'flex' : 'none')};
     top: 0;
     left: 0;
@@ -46,4 +47,10 @@ export const PicButtonContainer = styled.div`
     width: 100%;
 
     justify-content: space-evenly;
+`;
+
+interface CaptionsInputProps {}
+export const CaptionsInput = styled.input<any>`
+    width: 90%;
+    margin: 2px;
 `;
