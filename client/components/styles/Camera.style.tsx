@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { determinedColor } from './Navbar.style';
 export const CameraContainer = styled.div<any>`
     position: relative;
     display: flex;
@@ -52,7 +52,22 @@ export const PicButtonContainer = styled.div<any>`
 
 export const CaptionsInput = styled.input<any>`
     width: 80%;
-    margin: 2px;
+    /* margin: 2px; */
+    border: 2px solid #e1e5ee;
+    color: white;
+    outline: none;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    background: none;
+
+    :hover {
+        /* border-color: #adffff; */
+        border-color: ${determinedColor};
+    }
+
+    :focus {
+        border-color: #18ffff;
+    }
 `;
 
 export const TakePhotoButton = styled.div<any>`
@@ -90,4 +105,23 @@ export const SnapBtnContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+`;
+
+export const PhotoOptionsBtns = styled.button`
+    border: 2px solid #e1e5ee;
+    color: white;
+    outline: none;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background: none;
+    margin: 0.5rem;
+
+    :hover {
+        /* border-color: #adffff; */
+        border-color: ${determinedColor};
+    }
+
+    :focus {
+        border-color: #18ffff;
+    }
 `;
