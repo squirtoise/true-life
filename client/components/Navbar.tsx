@@ -15,6 +15,7 @@ import {
     TrueLifeMobileLink,
     NavbarLinkBadge,
     UserProfile,
+    Searchbar,
 } from './styles/Navbar.style';
 
 export interface NavbarProps {
@@ -32,7 +33,6 @@ export function Navbar() {
                 <LeftContainer>
                     <NavbarLinkContainer>
                         {/* Navbar links / buttons */}
-
                         <NavbarLink to="/feed"> Home </NavbarLink>
 
                         <NavbarLink to="/friends"> Friends </NavbarLink>
@@ -51,6 +51,9 @@ export function Navbar() {
                     <TrueLifeMobileLink to="/feed">TL</TrueLifeMobileLink>
                 </CenterContainer>
                 <RightContainer>
+                        <Searchbar>
+                            <input type="text" placeholder="Search..."/>
+                        </Searchbar>
                     {/* Profile Icon/Img - need to be a button?*/}
                     <NavbarLinkBadge onClick={() => navigate('/myProfile')}>{streak}</NavbarLinkBadge>
                     <UserProfile

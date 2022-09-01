@@ -1,17 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-interface NavbarContainerProps {
-    extendNavbar: boolean;
-    streak: number;
-}
-
-interface NavbarClickableItemProp {
-    onClick: () => void;
-}
-
-
-export const NavbarLink = styled(Link)`
+export const NavbarLink = styled(Link) `
 color: white;
 font-size: x-large;
 font-family: Arial, Helvetica, sans-serif;
@@ -24,7 +14,7 @@ margin: 10px;
         display: none;
     }
     `;
-export const NavbarLinkBadge = styled.button<NavbarClickableItemProp>`
+export const NavbarLinkBadge = styled.button `
 position: absolute;
 
 max-width: 100%;
@@ -43,8 +33,7 @@ cursor: pointer;
     border-color: ${randomColor};
 }
 `;
-
-export const NavbarLinkExtended = styled(Link)`
+export const NavbarLinkExtended = styled(Link) `
 color: white;
 font-size: x-large;
 font-family: Arial, Helvetica, sans-serif;
@@ -54,7 +43,7 @@ margin: 10px;
     color: ${randomColor};
 }
 `;
-export const TrueLifeMobileLink = styled(Link)`
+export const TrueLifeMobileLink = styled(Link) `
 width: 40px;
 height: 40px;
 color: white;
@@ -70,9 +59,8 @@ font-family: Arial, Helvetica, sans-serif;
         display: none;
     }
     `;
-
 // profile img /icon
-export const UserProfile = styled.img<NavbarClickableItemProp>`
+export const UserProfile = styled.img `
     max-width: 100%;
     border-color: white;
     color: white;
@@ -88,16 +76,14 @@ export const UserProfile = styled.img<NavbarClickableItemProp>`
         border-color: ${randomColor};
     }
     `;
-
-export const NavbarContainer = styled.nav<NavbarContainerProps>`
+export const NavbarContainer = styled.nav `
     width: 100%;
     height: ${(props) => (props.extendNavbar ? '30vh' : '80px')};
     background-color: black;
     display: flex;
     flex-direction: column;
     `;
-
-export const LeftContainer = styled.div`
+export const LeftContainer = styled.div `
     display: flex;
     flex: 30%;
     align-items: center;
@@ -105,7 +91,7 @@ export const LeftContainer = styled.div`
     padding-left: 1%;
     background-color: black;
     `;
-export const CenterContainer = styled.div`
+export const CenterContainer = styled.div `
     display: flex;
     flex: 40%;
     align-items: center;
@@ -113,15 +99,14 @@ export const CenterContainer = styled.div`
     color: white;
     background-color: black;
     `;
-export const RightContainer = styled.div`
+export const RightContainer = styled.div `
     display: flex;
     flex: 30%;
     justify-content: flex-end;
     padding-right: 1%;
     background-color: black;
     `;
-
-export const Searchbar = styled.div`
+export const Searchbar = styled.div `
     display: flex;
     flex: 30%;
     align-items: center;
@@ -129,19 +114,17 @@ export const Searchbar = styled.div`
     padding-left: 1%;
     background-color: black;
 `;
-
-export const NavbarInnerContainer = styled.div`
+export const NavbarInnerContainer = styled.div `
 width: 100%;
 height: 80px;
 display: flex;
 `;
-
-export const NavbarLinkContainer = styled.div`
+export const NavbarLinkContainer = styled.div `
 display: flex;
 flex-direction: row;
 justify-content: flex-between;
 `;
-export const MenuButton = styled.button`
+export const MenuButton = styled.button `
 width: 70px;
     height: 50px;
     background: none;
@@ -157,8 +140,7 @@ width: 70px;
         display: none;
     }
 `;
-
-export const NavbarExtendedContainer = styled.div`
+export const NavbarExtendedContainer = styled.div `
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -167,8 +149,7 @@ export const NavbarExtendedContainer = styled.div`
         display: none;
     }
 `;
-
-export const BodyLayout = styled.div`
+export const BodyLayout = styled.div `
     text-align: center;
     display: flex;
     flex-direction: column;
