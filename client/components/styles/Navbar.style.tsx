@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
- const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
 
 export const determinedColor = randomColor;
 interface NavbarContainerProps {
@@ -164,6 +164,17 @@ export const BodyLayout = styled.div`
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+
+    height: 100vh;
+`;
+export const BodyLayoutv2 = styled.div`
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: black;
+    height: 100vh;
 `;

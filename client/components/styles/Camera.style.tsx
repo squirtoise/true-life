@@ -32,13 +32,13 @@ interface VideoProps {
 export const Video = styled.video<VideoProps>`
     display: ${(props) => (props.hasPhoto ? 'none' : 'block')};
     width: 100%;
-    max-width: 100%;
+    max-width: 414px;
     background-color: black;
     height: auto;
 `;
 export const CanvasComp = styled.canvas<any>`
     width: 100%;
-    max-width: 100%;
+    max-width: 414px;
     height: auto;
 `;
 
