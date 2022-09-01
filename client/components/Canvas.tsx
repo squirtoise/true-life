@@ -60,9 +60,9 @@ function Canvas() {
         setHasPhoto(false);
     };
 
-    const onSubmitHandler = (e: any) => {
+    const uploadPost = () => {
         console.log('file data ====>', snappedPhoto);
-        e.preventDefault();
+        
 
         const data = new FormData();
 
@@ -124,7 +124,13 @@ function Canvas() {
                             {writeCaption ? 'Cancel' : 'Add Caption'}
                         </button>
 
-                        <button>Post</button>
+                        <button
+                            onClick={() => {
+                                uploadPost();
+                            }}
+                        >
+                            Post
+                        </button>
                     </PicButtonContainer>
                     {writeCaption && (
                         <PicButtonContainer>
