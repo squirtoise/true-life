@@ -245,7 +245,9 @@ GET /api/post/:id
 
 ### Create a Post
 
-Adds a new post to DB and returns the new post object <br> `/:id` param -> the ID of the user creating the post
+NOTE: This endpoint requires a file to be sent in the request, otherwise errors are thrown.
+
+Adds a new post to DB, uploads post picture to S3, and returns the new post object <br> `/:id` param -> the ID of the user creating the post <br> The filename in the DB is set and referenced as `[userID]-[filename].[ext]`
 
 ```
 POST /api/post/:id
@@ -255,8 +257,7 @@ Body format:
 
 ```
 body: {
-    picture: [string] // the filename.[ext] of the picture uploaded to S3
-    caption: [string] // the post caption
+    caption: [string] // the post's caption
 }
 ```
 

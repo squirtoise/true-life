@@ -79,12 +79,20 @@ postController.one = async (req: Request, res: Response, next: NextFunction) => 
 };
 
 // adds new post to DB, saves returned post to res.locals
+// functionality added to pull filename from req.file and add it to DB field
 postController.new = async (req: Request, res: Response, next: NextFunction) => {
-    const { picture, caption } = req.body;
+    const { caption } = req.body;
 
-    if (picture && caption) {
+    console.log(req.file);
+
+    if (req.file) {
         let result: any;
-        const params: any[] = [req.params.id, picture, caption, new Date().toISOString().slice(0, -5)];
+        const params: any[] = [
+            req.params.id,
+            `user-${req.params.id}_${req.file.filename}`,
+            caption ? caption : '',
+            new Date().toISOString().slice(0, -5),
+        ];
 
         try {
             result = await db.query(queries.createPost, params);
@@ -97,7 +105,7 @@ postController.new = async (req: Request, res: Response, next: NextFunction) => 
             res.locals.post = result.rows[0];
             return next();
         } else return res.status(500).send('DB Error: Creating post failed');
-    } else return res.status(400).send('Picture and/or caption not included in body');
+    } else return res.status(400).send('File (req.file) required in post upload');
 };
 
 // updates post's caption in DB, saves returned post to res.locals
