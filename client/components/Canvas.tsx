@@ -62,7 +62,7 @@ function Canvas() {
 
     const uploadPost = () => {
         console.log('file data ====>', snappedPhoto);
-        
+        console.log('caption ====>', savedCaption);
 
         const data = new FormData();
 
@@ -77,7 +77,7 @@ function Canvas() {
         // Send reqest to backend - Single upload
         fetch(`${server}/api/post/${userID}`, {
             method: 'POST',
-            body: data,
+            body: JSON.stringify({ picture: snappedPhoto, caption: savedCaption }),
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
