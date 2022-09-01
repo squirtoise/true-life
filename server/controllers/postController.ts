@@ -83,8 +83,6 @@ postController.one = async (req: Request, res: Response, next: NextFunction) => 
 postController.new = async (req: Request, res: Response, next: NextFunction) => {
     const { caption } = req.body;
 
-    console.log(req.file);
-
     if (req.file) {
         let result: any;
         const params: any[] = [

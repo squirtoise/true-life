@@ -30,7 +30,7 @@ export const uploadFile = (file: any, userID: any) => {
 
 // upload file to s3 bucket
 // files are saved as postID.[ext]
-export const uploadBase64 = (base64: any, userID: any, postID: any) => {
+export const uploadBase64 = async (base64: any, userID: any, postID: any) => {
     const base64Data: any = new (Buffer as any).from(
         base64.replace(/^data:image\/\w+;base64,/, ''),
         'base64'
@@ -46,7 +46,13 @@ export const uploadBase64 = (base64: any, userID: any, postID: any) => {
         ContentType: `image/${type}`,
     };
 
-    return s3.upload(params).promise(); // this will upload file to S3
+    try {
+        const { Location, Key } = await s3.upload(params).promise(); // this will upload file to S3
+        console.log(JSON.stringify({ Location, Key }));
+        return { Location, Key };
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 // download file from s3 bucket
