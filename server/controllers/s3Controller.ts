@@ -11,13 +11,13 @@ const s3Controller: any = {};
 // /:id param is ID of the user posting the image
 s3Controller.put = async (req: Request, res: Response, next: NextFunction) => {
     // makes sure that a file is included in the request
-    if (req.file) {
-        console.log(req.file);
+    // if (req.file) {
+        // console.log(req.file);
 
         let result: any;
         // uploading to AWS S3
         try {
-            result = await uploadBase64(req.file, req.params.id, res.locals.post.id);
+            result = await uploadBase64(req.body.picture, req.params.id, res.locals.post.id);
         } catch (err) {
             console.log(`S3 Upload Error:\n${err}`);
         }
@@ -25,11 +25,11 @@ s3Controller.put = async (req: Request, res: Response, next: NextFunction) => {
         console.log(`[S3 Response] ${result}`);
 
         // deletes file from local dir after upload
-        res.locals.file = req.file;
-        await unlinkFile(req.file.path);
+        // res.locals.file = req.file;
+        // await unlinkFile(req.file.path);
 
         return next();
-    } else return res.status(400).send('File not included in request');
+    // } else return res.status(400).send('File not included in request');
 };
 
 export default s3Controller;

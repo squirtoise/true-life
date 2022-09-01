@@ -83,27 +83,27 @@ postController.one = async (req: Request, res: Response, next: NextFunction) => 
 postController.new = async (req: Request, res: Response, next: NextFunction) => {
     const { caption } = req.body;
 
-    if (req.file) {
-        let result: any;
-        const params: any[] = [
-            req.params.id,
-            `user-${req.params.id}_${req.file.filename}`,
-            caption ? caption : '',
-            new Date().toISOString().slice(0, -5),
-        ];
+    // if (req.file) {
+    let result: any;
+    const params: any[] = [
+        req.params.id,
+        `user-${req.params.id}_test`,
+        caption ? caption : '',
+        new Date().toISOString().slice(0, -5),
+    ];
 
-        try {
-            result = await db.query(queries.createPost, params);
-        } catch (err) {
-            console.log(err);
-            return res.status(500).send('DB Error:' + err);
-        }
+    try {
+        result = await db.query(queries.createPost, params);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send('DB Error:' + err);
+    }
 
-        if (result.rows.length > 0) {
-            res.locals.post = result.rows[0];
-            return next();
-        } else return res.status(500).send('DB Error: Creating post failed');
-    } else return res.status(400).send('File (req.file) required in post upload');
+    if (result.rows.length > 0) {
+        res.locals.post = result.rows[0];
+        return next();
+    } else return res.status(500).send('DB Error: Creating post failed');
+    // } else return res.status(400).send('File (req.file) required in post upload');
 };
 
 // updates post's caption in DB, saves returned post to res.locals
