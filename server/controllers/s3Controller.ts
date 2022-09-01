@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import util from 'util';
 import fs from 'fs';
 
-import { uploadFile, getFileStream } from '../scripts/s3';
+import { uploadFile, uploadBase64, getFileStream } from '../scripts/s3';
 const unlinkFile = util.promisify(fs.unlink);
 
 const s3Controller: any = {};
@@ -17,7 +17,7 @@ s3Controller.put = async (req: Request, res: Response, next: NextFunction) => {
         let result: any;
         // uploading to AWS S3
         try {
-            result = await uploadFile(req.file, req.params.id);
+            result = await uploadBase64(req.file, req.params.id, res.locals.post.id);
         } catch (err) {
             console.log(`S3 Upload Error:\n${err}`);
         }
