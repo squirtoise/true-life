@@ -36,8 +36,9 @@ const queries = {
     getUserPosts: `SELECT * FROM posts WHERE creator = $1`,
     getFriendPosts: `SELECT * FROM posts WHERE creator IN (SELECT friend_id FROM user_friends WHERE user_id = $1)`,
 
-    createPost: `INSERT INTO posts (creator, picture, caption, posted_on) VALUES ($1, $2, $3, $4) RETURNING *`,
+    createPost: `INSERT INTO posts (creator, caption, posted_on) VALUES ($1, $2, $3) RETURNING *`,
     updatePost: `UPDATE posts SET caption = $2 WHERE id = $1 RETURNING *`,
+    updatePostImage: `UPDATE posts SET picture = $2 WHERE id = $1 RETURNING *`,
     deletePost: `DELETE FROM posts WHERE id = $1`,
 
     getComments: `SELECT * FROM comments WHERE post = $1`,

@@ -33,7 +33,9 @@ const PORT: number | string = process.env.PORT || 3000;
 app.use(cors());
 app.use(cookieParser());
 app.use(compression());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
+app.use(bodyParser.text({ limit: '200mb' }));
 
 // serve static files
 if (process.env.NODE_ENV?.trim() === 'production') {

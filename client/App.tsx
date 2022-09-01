@@ -19,7 +19,7 @@ export function App() {
             <Router>
                 {/* <Navbar /> */}
                 <Routes>
-                    <Route path="/" element={<LoginPage />} />
+                    <Route path="/" element={<FeedPage />} />
 
                     {/* FILE UPLOAD TEST */}
                     {/* <Route path='/upload' element={<Upload/>}/> */}

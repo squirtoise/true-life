@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Post from '../Post';
 
 function FeedPage() {
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        getAllPosts();
+    }, []);
+
+    const getAllPosts = async () => {
+        const result = await fetch('http://localhost:3000/api/post');
+        console.log(result.body);
+        // setPosts(result.body);
+    };
+
     return (
         <div>
             <h1>This is my Feed</h1>

@@ -82,28 +82,46 @@ postController.one = async (req: Request, res: Response, next: NextFunction) => 
 // functionality added to pull filename from req.file and add it to DB field
 postController.new = async (req: Request, res: Response, next: NextFunction) => {
     const { caption } = req.body;
+    const userID = req.params.id;
 
-    // if (req.file) {
-    let result: any;
-    const params: any[] = [
-        req.params.id,
-        `user-${req.params.id}_test`,
-        caption ? caption : '',
-        new Date().toISOString().slice(0, -5),
-    ];
+    // if picture (base64) is included in body
+    if (req.body.picture) {
+        let result: any;
+        const params: any[] = [userID, caption ? caption : null, new Date().toISOString().slice(0, -5)];
 
-    try {
-        result = await db.query(queries.createPost, params);
-    } catch (err) {
-        console.log(err);
-        return res.status(500).send('DB Error:' + err);
-    }
+        // add post data to DB (sans image filename.ext, see below)
+        try {
+            result = await db.query(queries.createPost, params);
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send('DB Error:' + err);
+        }
 
-    if (result.rows.length > 0) {
-        res.locals.post = result.rows[0];
-        return next();
-    } else return res.status(500).send('DB Error: Creating post failed');
-    // } else return res.status(400).send('File (req.file) required in post upload');
+        // if the post data is returned (no errors)
+        if (result.rows.length > 0) {
+            // get new post ID from result
+            const postID = result.rows[0].id;
+            // get file extension of picture (base64)
+            const type = req.body.picture.split(';')[0].split('/')[1];
+
+            // add image filename.ext to DB (with post ID)
+            try {
+                result = await db.query(queries.updatePostImage, [
+                    postID,
+                    `user-${req.params.id}_post-${postID}.${type}`,
+                ]);
+            } catch (err) {
+                console.log(err);
+                return res.status(500).send('DB Error:' + err);
+            }
+
+            // if post data is returned
+            if (result.rows.length > 0) {
+                res.locals.post = result.rows[0];
+                return next();
+            } else return res.status(500).send('DB Error: Updating post with S3 bucket filename failed');
+        } else return res.status(500).send('DB Error: Creating post failed');
+    } else return res.status(400).send('Picture (base64) required in post body');
 };
 
 // updates post's caption in DB, saves returned post to res.locals
