@@ -1,13 +1,14 @@
 import React from 'react';
 import Canvas from '../Canvas';
-
+import { Navbar } from '../Navbar';
+import { BodyLayoutv2 } from '../styles/Navbar.style';
 
 function CameraSnapPage() {
     return (
-        <div>
-            <h1>This is the page to snap a pic</h1>
+        <BodyLayoutv2>
+            <Navbar></Navbar>
             <Canvas />
-        </div>
+        </BodyLayoutv2>
     );
 }
 
