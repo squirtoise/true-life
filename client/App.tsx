@@ -31,8 +31,8 @@ export function App() {
                         <Route path="/friends/:id" element={<FriendsFeedPage />} />
                         <Route path="/streak" />
                         <Route path="/myProfile" element={<MyProfilePage />} />
-                        <Route path="/camera" element={<CameraSnapPage />} />
                     </Route>
+                        <Route path="/camera" element={<CameraSnapPage />} />
                 </Routes>
             </Router>
         </>
