@@ -19,13 +19,12 @@ export function App() {
             <Router>
                 {/* <Navbar /> */}
                 <Routes>
-                    <Route path="/" element={<FeedPage />} />
-
                     {/* FILE UPLOAD TEST */}
                     {/* <Route path='/upload' element={<Upload/>}/> */}
 
                     <Route path="/signup" element={<SignUpPage />} />
                     <Route element={<Layout />}>
+                        <Route path="/" element={<FeedPage />} />
                         <Route path="/feed" element={<FeedPage />} />
                         <Route path="/friends" element={<FriendsListPage />} />
                         <Route path="/friends/:id" element={<FriendsFeedPage />} />
