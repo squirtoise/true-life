@@ -47,7 +47,7 @@ export const NavbarLinkBadge = styled.button<NavbarClickableItemProp>`
 
 export const NavbarLinkExtended = styled(Link)`
     color: white;
-    font-size: x-large;
+    font-size: large;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     margin: 10px;

@@ -19,20 +19,19 @@ export function App() {
             <Router>
                 {/* <Navbar /> */}
                 <Routes>
-                    <Route path="/" element={<FeedPage />} />
-
                     {/* FILE UPLOAD TEST */}
                     {/* <Route path='/upload' element={<Upload/>}/> */}
 
-                    <Route path="/signup" element={<SignUpPage />} />
                     <Route element={<Layout />}>
+                        <Route path="/signup" element={<SignUpPage />} />
+                        <Route path="/" element={<FeedPage />} />
                         <Route path="/feed" element={<FeedPage />} />
                         <Route path="/friends" element={<FriendsListPage />} />
                         <Route path="/friends/:id" element={<FriendsFeedPage />} />
                         <Route path="/streak" />
                         <Route path="/myProfile" element={<MyProfilePage />} />
                     </Route>
-                        <Route path="/camera" element={<CameraSnapPage />} />
+                    <Route path="/camera" element={<CameraSnapPage />} />
                 </Routes>
             </Router>
         </>
